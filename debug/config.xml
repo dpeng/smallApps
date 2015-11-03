@@ -66,8 +66,8 @@
             <shellLPParameters>unset</shellLPParameters>
         </element015>
         <element016>
-            <shellFileName>c_o_p_y_t_o_c_l_i_p_b_o_a_r_d</shellFileName>
-            <shellLPParameters>grep -i -E &quot;&quot; *.LOG &gt;grep.txt &amp;&amp; grep.txt</shellLPParameters>
+            <shellFileName>unset</shellFileName>
+            <shellLPParameters>unset</shellLPParameters>
         </element016>
         <element017>
             <shellFileName>unset</shellFileName>
@@ -114,7 +114,7 @@
             <shellLPParameters>unset</shellLPParameters>
         </element027>
         <element028>
-            <shellFileName>unset</shellFileName>
+            <shellFileName>D:\userdata\dpeng\Desktop\shortcut\QQSnapShot.exe</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element028>
         <element029>
@@ -142,7 +142,7 @@
             <shellLPParameters>unset</shellLPParameters>
         </element034>
         <element035>
-            <shellFileName>C:\Program Files\Zune\Zune.exe</shellFileName>
+            <shellFileName>unset</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element035>
     </MasterKey000>
@@ -164,7 +164,7 @@
             <shellLPParameters>unset</shellLPParameters>
         </element003>
         <element004>
-            <shellFileName>d:\userdata\dpeng\desktop\shortcut\104.rdp</shellFileName>
+            <shellFileName>unset</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element004>
         <element005>
@@ -200,24 +200,24 @@
             <shellLPParameters>unset</shellLPParameters>
         </element012>
         <element013>
-            <shellFileName>d:\userdata\dpeng\my documents\skydrive\my document\nsn</shellFileName>
+            <shellFileName>D:\userdata\dpeng\Desktop\shortcut\local.rdg</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element013>
         <element014>
-            <shellFileName>c:\program files (x86)\microsoft office\office12\excel.exe</shellFileName>
+            <shellFileName>C:\Program Files\Microsoft Office 15\root\office15\EXCEL.EXE</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element014>
         <element015>
-            <shellFileName>explorer</shellFileName>
-            <shellLPParameters>ftp://rakeserver:rake&amp;pic@hgqf83x.nsn-intra.net/</shellLPParameters>
+            <shellFileName>C:\Program Files (x86)\foobar2000\foobar2000.exe</shellFileName>
+            <shellLPParameters>unset</shellLPParameters>
         </element015>
         <element016>
-            <shellFileName>\\10.135.48.10\FS000002581\dpeng</shellFileName>
-            <shellLPParameters>unset</shellLPParameters>
+            <shellFileName>c_o_p_y_t_o_c_l_i_p_b_o_a_r_d</shellFileName>
+            <shellLPParameters>grep -i -E &quot;&quot; *.LOG &gt;grep.txt &amp;&amp; grep.txt</shellLPParameters>
         </element016>
         <element017>
             <shellFileName>c:\program files (x86)\tencent\qq\bin\qqsclauncher.exe</shellFileName>
-            <shellLPParameters>/uin:359509920 /quicklunch:19c4cfaf9dc1c82f29b4f7f099ea3f67273fb2f22eb831299f01faa5e149729c8f65eeeed44ec5cd</shellLPParameters>
+            <shellLPParameters>/uin:359509920 /quicklunch:1409718A5CD43C41FF901E269B9DC321F3104D98C02701219FAB9529781F381C24579526479D71A9</shellLPParameters>
         </element017>
         <element018>
             <shellFileName>c:\program files\internet explorer\iexplore.exe</shellFileName>
@@ -232,11 +232,11 @@
             <shellLPParameters>unset</shellLPParameters>
         </element020>
         <element021>
-            <shellFileName>d:\userdata\dpeng\desktop\shortcut\hzfirewall.exe</shellFileName>
-            <shellLPParameters>runas</shellLPParameters>
+            <shellFileName>d:\userdata\dpeng\desktop\shortcut\myweb.bat</shellFileName>
+            <shellLPParameters>unset</shellLPParameters>
         </element021>
         <element022>
-            <shellFileName>d:\userdata\dpeng\desktop\shortcut\myweb.exe</shellFileName>
+            <shellFileName>D:\userdata\dpeng\Desktop\shortcut\myweb.bat</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element022>
         <element023>
@@ -244,28 +244,28 @@
             <shellLPParameters>unset</shellLPParameters>
         </element023>
         <element024>
-            <shellFileName>c:\program files (x86)\microsoft office\office12\outlook.exe</shellFileName>
+            <shellFileName>C:\Program Files\Microsoft Office 15\root\office15\OUTLOOK.EXE</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element024>
         <element025>
-            <shellFileName>z:\nyquist</shellFileName>
-            <shellLPParameters>unset</shellLPParameters>
+            <shellFileName>C:\Program Files\totalcmd\TOTALCMD64.EXE</shellFileName>
+            <shellLPParameters>/T /R=&quot;d:\work\code\nyquist\p_nyquist\&quot;</shellLPParameters>
         </element025>
         <element026>
             <shellFileName>C:\Program Files (x86)\Tencent\QQ\Bin\QQ.exe</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element026>
         <element027>
-            <shellFileName>d:\userdata\dpeng\desktop\review</shellFileName>
-            <shellLPParameters>unset</shellLPParameters>
+            <shellFileName>c_o_p_y_t_o_c_l_i_p_b_o_a_r_d</shellFileName>
+            <shellLPParameters>svn revert ./ --depth=infinity</shellLPParameters>
         </element027>
         <element028>
-            <shellFileName>d:\userdata\dpeng\desktop\shortcut</shellFileName>
-            <shellLPParameters>unset</shellLPParameters>
+            <shellFileName>C:\Program Files\totalcmd\TOTALCMD64.EXE</shellFileName>
+            <shellLPParameters>/T /R=&quot;D:\userdata\dpeng\Desktop\shortcut&quot;</shellLPParameters>
         </element028>
         <element029>
-            <shellFileName>c:\apps\totalcmd\totalcmd64.exe</shellFileName>
-            <shellLPParameters>unset</shellLPParameters>
+            <shellFileName>C:\Program Files\totalcmd\TOTALCMD64.EXE</shellFileName>
+            <shellLPParameters>/T /R=&quot;\\HGQF83X.nsn-intra.net\RakeNetworkSharing\UP2\SCrumItem\&quot;</shellLPParameters>
         </element029>
         <element030>
             <shellFileName>c:\apps\ue\uedit32.exe</shellFileName>
@@ -276,7 +276,7 @@
             <shellLPParameters>unset</shellLPParameters>
         </element031>
         <element032>
-            <shellFileName>c:\program files (x86)\microsoft office\office12\winword.exe</shellFileName>
+            <shellFileName>C:\Program Files\Microsoft Office 15\root\office15\WINWORD.EXE</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element032>
         <element033>
@@ -284,11 +284,11 @@
             <shellLPParameters>runas</shellLPParameters>
         </element033>
         <element034>
-            <shellFileName>c:\users\dpeng\appdata\local\youdao\dict\application\yodaodict.exe</shellFileName>
+            <shellFileName>C:\Program Files (x86)\YodaoDict\YodaoDict.exe</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element034>
         <element035>
-            <shellFileName>unset</shellFileName>
+            <shellFileName>C:\Program Files\Zune\Zune.exe</shellFileName>
             <shellLPParameters>unset</shellLPParameters>
         </element035>
     </MasterKey001>

@@ -191,9 +191,7 @@ BOOL CConfiguration::SaveConfig(const char* filename)
 				TiXmlElement TiXmlElementType(j)(TiXmlElementName[j]);
 				//TiXmlElementType(j).InsertEndChild(tmpText);
 				//slaveItemParameters.InsertEndChild(TiXmlElementType(j));
-
-				//test
-
+				
 				TiXmlText shellFileName(m_shellFileName[i][j]);
 				TiXmlElement shellFileNameElementName(_T("shellFileName"));
 				shellFileNameElementName.InsertEndChild(shellFileName);

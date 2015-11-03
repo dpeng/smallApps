@@ -85,6 +85,7 @@ HINSTANCE g_hInstance;
 HWND g_hWnd;
 CConfiguration *g_configXml;
 
+/*
 BOOL GetProcessModule(DWORD dwPID, DWORD dwModuleID, LPMODULEENTRY32 lpMe32, DWORD cbMe32)   
 {   
 	BOOL bRet = FALSE;   
@@ -113,6 +114,7 @@ BOOL GetProcessModule(DWORD dwPID, DWORD dwModuleID, LPMODULEENTRY32 lpMe32, DWO
 	CloseHandle   (hModuleSnap);   
 	return   (bRet);   
 }
+
 inline void GetCurrentProcessId_dpeng()
 {
 	DWORD nID ;
@@ -150,53 +152,44 @@ inline void GetCurrentProcessId_dpeng()
 	} 
 	CloseHandle(hProcessSnap); 
 }
+*/
 inline void openFileOrFolder(char* shellFileName, char* shellLPParameters)
-{
-	if (strcmp(shellFileName, _T("unset")))
+{	
+	if (PathIsDirectory(shellFileName))
 	{
-		BOOL bVisible = IsWindowVisible(g_hWnd);
-		if (bVisible) {ShowWindow(g_hWnd,SW_RESTORE);} else {ShowWindow(g_hWnd,SW_SHOW);}
-		if (PathIsDirectory(shellFileName))
+		if (strcmp(shellLPParameters, _T("unset")))
 		{
-			if (strcmp(shellLPParameters, _T("unset")))
-			{
-				ShellExecute(g_hWnd,_T("explore"),shellFileName,shellLPParameters,_T(""),SW_SHOWNORMAL);
-			} 
-			else
-			{
-				ShellExecute(g_hWnd,_T("explore"),shellFileName,_T(""),_T(""),SW_SHOWNORMAL);
-			}
+			ShellExecute(g_hWnd,_T("explore"),shellFileName,shellLPParameters,_T(""),SW_SHOWNORMAL);
 		} 
 		else
 		{
-			if(strstr(shellLPParameters, "runas"))
-			{
-				SHELLEXECUTEINFO shExecInfo;
-				shExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
-				shExecInfo.fMask = NULL;
-				shExecInfo.hwnd = g_hWnd;
-				shExecInfo.lpVerb = "runas";
-				shExecInfo.lpFile = shellFileName;
-				shExecInfo.lpParameters = NULL;
-				shExecInfo.lpDirectory = NULL;
-				shExecInfo.nShow = SW_SHOWNORMAL;
-				shExecInfo.hInstApp = NULL;
-				ShellExecuteEx(&shExecInfo);
-			}
-			else if (strcmp(shellLPParameters, _T("unset")))
-			{
-				ShellExecute(g_hWnd,_T("open"),shellFileName,shellLPParameters,_T(""),SW_SHOWNORMAL);
-			} 
-			else
-			{
-				ShellExecute(g_hWnd,_T("open"),shellFileName,_T(""),_T(""),SW_SHOWNORMAL);
-			}
+			ShellExecute(g_hWnd,_T("explore"),shellFileName,_T(""),_T(""),SW_SHOWNORMAL);
 		}
-		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
-	}
+	} 
 	else
 	{
-		//MessageBox(NULL, "This shortcut key not assign yet!", "warning!", MB_OK);
+		if(strstr(shellLPParameters, "runas"))
+		{
+			SHELLEXECUTEINFO shExecInfo;
+			shExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+			shExecInfo.fMask = NULL;
+			shExecInfo.hwnd = g_hWnd;
+			shExecInfo.lpVerb = "runas";
+			shExecInfo.lpFile = shellFileName;
+			shExecInfo.lpParameters = NULL;
+			shExecInfo.lpDirectory = NULL;
+			shExecInfo.nShow = SW_SHOWNORMAL;
+			shExecInfo.hInstApp = NULL;
+			ShellExecuteEx(&shExecInfo);
+		}
+		else if (strcmp(shellLPParameters, _T("unset")))
+		{
+			ShellExecute(g_hWnd,_T("open"),shellFileName,shellLPParameters,_T(""),SW_SHOWNORMAL);
+		} 
+		else
+		{
+			ShellExecute(g_hWnd,_T("open"),shellFileName,_T(""),_T(""),SW_SHOWNORMAL);
+		}
 	}
 }
 
@@ -204,18 +197,15 @@ inline void copyStringToClipboard(char* shellFileName, char* shellLPParameters)
 {
 	if(OpenClipboard(NULL))
 	{  
-		BOOL bVisible = IsWindowVisible(g_hWnd);
-		if (bVisible) {ShowWindow(g_hWnd,SW_RESTORE);} else {ShowWindow(g_hWnd,SW_SHOW);}
 		HGLOBAL   clipbuffer;  
 		char   *   buffer;  
 		EmptyClipboard();  
 		clipbuffer   =   GlobalAlloc(GMEM_DDESHARE,   strlen(shellLPParameters)+1);  
 		buffer   =   (char*)GlobalLock(clipbuffer);  
-		strcpy(buffer,   shellLPParameters);  
+		strcpy_s(buffer, strlen(shellLPParameters)+1, shellLPParameters);  
 		GlobalUnlock(clipbuffer);  
 		SetClipboardData(CF_TEXT,clipbuffer);
 		CloseClipboard();  
-		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
 	}  
 }
 inline void excuteCommand(char* shellFileName, char* shellLPParameters)
@@ -231,6 +221,24 @@ inline void excuteCommand(char* shellFileName, char* shellLPParameters)
 	}
 	
 }
+
+inline void notificationWindow()
+{
+	BOOL bVisible = IsWindowVisible(g_hWnd);
+	if (bVisible) 
+	{
+		ShowWindow(g_hWnd,SW_RESTORE);
+	} 
+	else 
+	{
+		ShowWindow(g_hWnd,SW_SHOW);
+	}
+	if (!bVisible) 
+	{ 
+		ShowWindow(g_hWnd,SW_HIDE); 
+	}
+	Sleep(160);
+}
 LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 {
 	KBDLLHOOKSTRUCT *pkh = (KBDLLHOOKSTRUCT *) lp;
@@ -241,6 +249,7 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 		BOOL bAltKeyDonw = GetAsyncKeyState(VK_LMENU)>>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RMENU)>>((sizeof(SHORT) * 8) - 1);
 		BOOL bShiftKeyDown = GetAsyncKeyState(VK_LSHIFT)>>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RSHIFT)>>((sizeof(SHORT) * 8) - 1);
 		int master = 0;
+		int slave = 0;
 		if (bWinKeyDown)
 		{
 			master = MASTER_KEY_WIN;
@@ -259,25 +268,28 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 			char shellLPParameters[MAX_PATH];
 			memset(shellFileName, 0, MAX_PATH);
 			memset(shellLPParameters, 0, MAX_PATH);
-			for (int i = '0'; i < '0' + 10; i++)
+			for (int i = '0'; i < 'Z'; i++) // 0~9(48 ~ 58)//A~Z(65 ~ 91)
 			{
 				if ((pkh->vkCode == i) && (GetAsyncKeyState(i)>>((sizeof(SHORT) * 8) - 1)))
 				{
-					strcpy_s(shellFileName, g_configXml->m_shellFileName[master][i - '0']);
-					strcpy_s(shellLPParameters, g_configXml->m_shellLPParameters[master][i - '0']);
-					excuteCommand(shellFileName, shellLPParameters);
+					if (i < 'A')
+					{
+						slave = i - '0';
+					} 
+					else
+					{
+						slave = i - 'A' + 10;
+					}
+					strcpy_s(shellFileName, g_configXml->m_shellFileName[master][slave]);
+					strcpy_s(shellLPParameters, g_configXml->m_shellLPParameters[master][slave]);
+					if (strcmp(shellFileName, _T("unset")))
+					{
+						notificationWindow();
+						excuteCommand(shellFileName, shellLPParameters);
+					}
 				}
 			}
 
-			for (int i = 'A'; i < 'A' + 26 ; i++)
-			{
-				if ((pkh->vkCode == i) && (GetAsyncKeyState(i)>>((sizeof(SHORT) * 8) - 1)))
-				{
-					strcpy_s(shellFileName, g_configXml->m_shellFileName[master][i - 'A' + 10]);
-					strcpy_s(shellLPParameters, g_configXml->m_shellLPParameters[master][i - 'A' + 10]);
-					excuteCommand(shellFileName, shellLPParameters);
-				}
-			}
 			switch(pkh->vkCode)
 			{
 			case 0xc0: //0xc0: VK_OEM_3
