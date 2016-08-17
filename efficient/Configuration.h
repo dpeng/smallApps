@@ -1,5 +1,5 @@
 #pragma once
-#define MAX_SUPPORT_FAST_START_MASTER_KEY 3 //Current support win, alt and shift
+#define MAX_SUPPORT_FAST_START_MASTER_KEY 4      //Current support win, alt and shift. add one for special keyboard
 #define MAX_SUPPORT_FAST_START_SLAVE_KEY 10 + 26 // ten number and 26 alphabet 
 
 class CConfiguration

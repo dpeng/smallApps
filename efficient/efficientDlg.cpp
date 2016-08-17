@@ -156,6 +156,8 @@ inline void openFileOrFolder(char* shellFileName, char* shellLPParameters)
 	{
 		BOOL bVisible = IsWindowVisible(g_hWnd);
 		if (bVisible) {ShowWindow(g_hWnd,SW_RESTORE);} else {ShowWindow(g_hWnd,SW_SHOW);}
+		Sleep(100);
+		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
 		if (PathIsDirectory(shellFileName))
 		{
 			if (strcmp(shellLPParameters, _T("unset")))
@@ -192,7 +194,6 @@ inline void openFileOrFolder(char* shellFileName, char* shellLPParameters)
 				ShellExecute(g_hWnd,_T("open"),shellFileName,_T(""),_T(""),SW_SHOWNORMAL);
 			}
 		}
-		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
 	}
 	else
 	{
@@ -206,16 +207,17 @@ inline void copyStringToClipboard(char* shellFileName, char* shellLPParameters)
 	{  
 		BOOL bVisible = IsWindowVisible(g_hWnd);
 		if (bVisible) {ShowWindow(g_hWnd,SW_RESTORE);} else {ShowWindow(g_hWnd,SW_SHOW);}
+		Sleep(100);
+		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
 		HGLOBAL   clipbuffer;  
 		char   *   buffer;  
 		EmptyClipboard();  
 		clipbuffer   =   GlobalAlloc(GMEM_DDESHARE,   strlen(shellLPParameters)+1);  
 		buffer   =   (char*)GlobalLock(clipbuffer);  
-		strcpy(buffer,   shellLPParameters);  
+		strcpy_s(buffer, strlen(shellLPParameters)+1, shellLPParameters);  
 		GlobalUnlock(clipbuffer);  
 		SetClipboardData(CF_TEXT,clipbuffer);
 		CloseClipboard();  
-		if (!bVisible) { ShowWindow(g_hWnd,SW_HIDE); }
 	}  
 }
 inline void excuteCommand(char* shellFileName, char* shellLPParameters)
@@ -237,8 +239,8 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 
 	if (nCode==HC_ACTION) 
 	{
-		BOOL bWinKeyDown = GetAsyncKeyState(VK_LWIN)>>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RWIN)>>((sizeof(SHORT) * 8) - 1);
-		BOOL bAltKeyDonw = GetAsyncKeyState(VK_LMENU)>>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RMENU)>>((sizeof(SHORT) * 8) - 1);
+		BOOL bWinKeyDown   = GetAsyncKeyState(VK_LWIN)  >>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RWIN)  >>((sizeof(SHORT) * 8) - 1);
+		BOOL bAltKeyDonw   = GetAsyncKeyState(VK_LMENU) >>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RMENU) >>((sizeof(SHORT) * 8) - 1);
 		BOOL bShiftKeyDown = GetAsyncKeyState(VK_LSHIFT)>>((sizeof(SHORT) * 8) - 1)|GetAsyncKeyState(VK_RSHIFT)>>((sizeof(SHORT) * 8) - 1);
 		int master = 0;
 		if (bWinKeyDown)
@@ -557,6 +559,7 @@ void CefficientDlg::initShortCutKey()
 	m_shortCutKeyMaster.AddString(_T("Win"));//MASTER_KEY_WIN
 	m_shortCutKeyMaster.AddString(_T("Alt"));//MASTER_KEY_ALT
 	m_shortCutKeyMaster.AddString(_T("Shift"));//MASTER_KEY_SHIFT
+	m_shortCutKeyMaster.AddString(_T("Special"));//MASTER_KEY_SHIFT
 
 	m_shortCutKeySlave.ResetContent();
 	for (int i = 0; i < MAX_SUPPORT_FAST_START_SLAVE_KEY; i++)
