@@ -233,11 +233,11 @@ inline void notificationWindow()
 	{
 		ShowWindow(g_hWnd,SW_SHOW);
 	}
+	Sleep(100);
 	if (!bVisible) 
 	{ 
 		ShowWindow(g_hWnd,SW_HIDE); 
 	}
-	Sleep(160);
 }
 LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 {
