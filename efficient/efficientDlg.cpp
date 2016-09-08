@@ -238,6 +238,7 @@ inline void notificationWindow()
 	{ 
 		ShowWindow(g_hWnd,SW_HIDE); 
 	}
+	Sleep(150);
 }
 LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 {
