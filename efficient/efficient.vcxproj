@@ -235,6 +235,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CeverythingDlg.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="efficient.cpp" />
     <ClCompile Include="efficientDlg.cpp" />
@@ -250,6 +251,7 @@
     <ClCompile Include="tinyXml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CeverythingDlg.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="efficient.h" />
     <ClInclude Include="efficientDlg.h" />

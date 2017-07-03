@@ -1,7 +1,10 @@
 // efficientDlg.h : header file
 //
 #include "Configuration.h"
-#pragma once#include "afxwin.h"
+#include "./everything/Everything.h"
+#include "CeverythingDlg.h"
+#pragma once
+#include "afxwin.h"
 #define SHORT_CUT_KEY_MAX_LEN 8
 
 enum{

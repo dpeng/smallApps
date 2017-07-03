@@ -64,6 +64,7 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\efficient.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
@@ -99,6 +100,15 @@ BEGIN
     EDITTEXT        IDC_FILE_NAME_EDIT,79,32,169,14,ES_AUTOHSCROLL
     LTEXT           "Excute Parameter",IDC_STATIC,6,53,58,8
     EDITTEXT        IDC_SHELLLPPARAMETER,79,53,169,14,ES_AUTOHSCROLL
+END
+
+IDD_EVERYTHING DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,156,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,156,50,14
 END
 
 
@@ -160,8 +170,27 @@ BEGIN
     IDD_EFFICIENT_DIALOG, DIALOG
     BEGIN
     END
+
+    IDD_EVERYTHING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_EVERYTHING AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////

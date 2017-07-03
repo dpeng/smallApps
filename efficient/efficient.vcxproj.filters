@@ -45,6 +45,9 @@
     <ClCompile Include="tinyXml\tinyxmlparser.cpp">
       <Filter>tinyXml</Filter>
     </ClCompile>
+    <ClCompile Include="CeverythingDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Configuration.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="everything\Everything.h">
       <Filter>everything</Filter>
+    </ClInclude>
+    <ClInclude Include="CeverythingDlg.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

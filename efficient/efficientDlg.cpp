@@ -8,7 +8,6 @@
 #include <shlwapi.h>
 #include <tlhelp32.h>
 #include <winuser.h>
-#include "./everything/Everything.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -85,6 +84,7 @@ HHOOK g_hHook = NULL;
 HINSTANCE g_hInstance;
 HWND g_hWnd;
 CConfiguration *g_configXml;
+CeverythingDlg g_everythingDlg;
 
 inline void openFileOrFolder(char* shellFileName, char* shellLPParameters)
 {	
@@ -223,13 +223,20 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 					}
 				}
 			}
-
+			BOOL bspace = 0;
 			switch(pkh->vkCode)
 			{
 			case 0xc0: //0xc0: VK_OEM_3
 				if ((GetAsyncKeyState(0xc0)>>((sizeof(SHORT) * 8) - 1)) && bWinKeyDown)
 				{
 					ShowWindow(g_hWnd,SW_SHOW);
+					//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
+				}
+				break;
+			case VK_SPACE:
+				if (bAltKeyDonw)
+				{
+					g_everythingDlg.ShowWindow(SW_SHOW);
 					//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
 				}
 				break;
@@ -319,6 +326,7 @@ BOOL CefficientDlg::OnInitDialog()
 		printf("%s\n", Everything_GetResultFileNameA(i));
 		strt[i] = Everything_GetResultFileNameA(i);
 	}*/
+	g_everythingDlg.Create(IDD_EVERYTHING, this);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
