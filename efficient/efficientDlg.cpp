@@ -8,6 +8,7 @@
 #include <shlwapi.h>
 #include <tlhelp32.h>
 #include <winuser.h>
+#include "./everything/Everything.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -307,6 +308,17 @@ BOOL CefficientDlg::OnInitDialog()
 	//ShowWindow(SW_HIDE);
 	m_curSelMaster = 0;
 	m_curSelSlave = 0;
+	/*
+	CString strt[100];
+	Everything_SetSearchA("face2");
+	Everything_QueryA(TRUE);
+	DWORD i;
+
+	for (i = 0; i < Everything_GetNumResults(); i++)
+	{
+		printf("%s\n", Everything_GetResultFileNameA(i));
+		strt[i] = Everything_GetResultFileNameA(i);
+	}*/
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 

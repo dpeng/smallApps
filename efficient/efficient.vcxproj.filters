@@ -16,6 +16,9 @@
     <Filter Include="tinyXml">
       <UniqueIdentifier>{0ba6cfbf-0c44-47b3-a214-1ce57f7f5695}</UniqueIdentifier>
     </Filter>
+    <Filter Include="everything">
+      <UniqueIdentifier>{cfb6f83b-1f4c-4fd4-9e29-680d7ccc247e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Configuration.cpp">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="tinyXml\tinyxml.h">
       <Filter>tinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="everything\Everything.h">
+      <Filter>everything</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
