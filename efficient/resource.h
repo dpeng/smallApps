@@ -11,6 +11,8 @@
 #define IDD_EVERYTHING                  129
 #define IDC_STATIC_HELP                 1000
 #define IDC_LIST1                       1001
+#define IDC_SEARCHLIST1                 1001
+#define IDC_SEARCHRESULTLIST            1001
 #define IDC_COMBO1                      1002
 #define IDC_COMBO_LIST_KEY              1002
 #define IDC_FILE_NAME_EDIT              1003
@@ -22,6 +24,7 @@
 #define IDC_RADIO_AUTOSTART             1008
 #define IDC_COMBO_LIST_KEY2             1009
 #define IDC_COMBO_LIST_KEY_MASTER       1009
+#define IDC_KEYWORDCOLLECTOR            1009
 #define IDC_RADIO_AUTOSTART2            1010
 #define IDC_FILE_NAME_EDIT2             1010
 #define IDC_SHELLLPPARAMETER            1010
@@ -32,7 +35,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1009
+#define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

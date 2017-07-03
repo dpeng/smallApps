@@ -315,17 +315,6 @@ BOOL CefficientDlg::OnInitDialog()
 	//ShowWindow(SW_HIDE);
 	m_curSelMaster = 0;
 	m_curSelSlave = 0;
-	/*
-	CString strt[100];
-	Everything_SetSearchA("face2");
-	Everything_QueryA(TRUE);
-	DWORD i;
-
-	for (i = 0; i < Everything_GetNumResults(); i++)
-	{
-		printf("%s\n", Everything_GetResultFileNameA(i));
-		strt[i] = Everything_GetResultFileNameA(i);
-	}*/
 	g_everythingDlg.Create(IDD_EVERYTHING, this);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

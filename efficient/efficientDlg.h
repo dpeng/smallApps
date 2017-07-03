@@ -1,7 +1,6 @@
 // efficientDlg.h : header file
 //
 #include "Configuration.h"
-#include "./everything/Everything.h"
 #include "CeverythingDlg.h"
 #pragma once
 #include "afxwin.h"
