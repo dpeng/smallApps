@@ -4,7 +4,11 @@
 #include<vector>
 using namespace std;
 // CeverythingDlg dialog
-
+typedef struct
+{
+	CString fileName;
+	CString filePath;
+} SSearchResult;
 class CeverythingDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CeverythingDlg)
@@ -23,8 +27,8 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CEdit m_KeywordCollector;
-	CListBox m_SearchResultList;
-	vector <CString> m_searchResultStr;
+	CEdit m_EditBox;
+	CListBox m_ListBox;
+	vector <SSearchResult> m_searchResult;
 	afx_msg void OnEnChangeKeywordcollector();
 };

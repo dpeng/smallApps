@@ -24,8 +24,8 @@ CeverythingDlg::~CeverythingDlg()
 void CeverythingDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_KEYWORDCOLLECTOR, m_KeywordCollector);
-	DDX_Control(pDX, IDC_SEARCHRESULTLIST, m_SearchResultList);
+	DDX_Control(pDX, IDC_KEYWORDCOLLECTOR, m_EditBox);
+	DDX_Control(pDX, IDC_SEARCHRESULTLIST, m_ListBox);
 }
 
 
@@ -35,20 +35,6 @@ END_MESSAGE_MAP()
 
 
 // CeverythingDlg message handlers
-
-
-/*
-CString strt[100];
-Everything_SetSearchA("face2");
-Everything_QueryA(TRUE);
-DWORD i;
-
-for (i = 0; i < Everything_GetNumResults(); i++)
-{
-printf("%s\n", Everything_GetResultFileNameA(i));
-strt[i] = Everything_GetResultFileNameA(i);
-}*/
-
 
 void CeverythingDlg::OnEnChangeKeywordcollector()
 {
@@ -60,12 +46,13 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	// TODO:  Add your control notification handler code here
 	// got the keyword from user input
 	CString keyWord = "";
-	m_KeywordCollector.GetWindowTextA(keyWord);
+	SSearchResult tmpResult;
+	m_EditBox.GetWindowTextA(keyWord);
 
 	//search by everything
 	Everything_SetSearchA(keyWord);
 	Everything_QueryA(TRUE);
-	m_searchResultStr.clear();
+	m_searchResult.clear();
 	int displaycount = Everything_GetNumResults();
 	if (displaycount > 100)
 	{
@@ -73,13 +60,14 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	}
 	for (int i = 0; i < displaycount; i++)
 	{
-		//strt[i] = Everything_GetResultFileNameA(i);
-		m_searchResultStr.push_back(Everything_GetResultFileNameA(i));
+		tmpResult.fileName = Everything_GetResultFileNameA(i);
+		tmpResult.fileName = Everything_GetResultPathA(i);
+		m_searchResult.push_back(tmpResult);
 	}
-	m_SearchResultList.ResetContent();
-	for (int i = 0; i < m_searchResultStr.size(); i++)
+	m_ListBox.ResetContent();
+	for (int i = 0; i < m_searchResult.size(); i++)
 	{
-		m_SearchResultList.AddString(m_searchResultStr.at(i));
+		tmpResult = m_searchResult.at(i);
+		m_ListBox.AddString(tmpResult.fileName);
 	}
-	int abc = 0;
 }
