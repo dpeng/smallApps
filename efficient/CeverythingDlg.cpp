@@ -25,7 +25,7 @@ void CeverythingDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_KEYWORDCOLLECTOR, m_EditBox);
-	DDX_Control(pDX, IDC_SEARCHRESULTLIST, m_ListBox);
+	DDX_Control(pDX, IDC_SEARCHRESULTLIST, m_listCtrl);
 }
 
 
@@ -64,10 +64,25 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 		tmpResult.fileName = Everything_GetResultPathA(i);
 		m_searchResult.push_back(tmpResult);
 	}
-	m_ListBox.ResetContent();
+	//m_listCtrl.ResetContent();
 	for (int i = 0; i < m_searchResult.size(); i++)
 	{
 		tmpResult = m_searchResult.at(i);
-		m_ListBox.AddString(tmpResult.fileName);
+		//m_listCtrl.AddString(tmpResult.fileName);
 	}
+}
+
+
+BOOL CeverythingDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	CRect rect;
+	m_listCtrl.GetClientRect(&rect);
+	m_listCtrl.SetExtendedStyle(m_listCtrl.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+	int ret = m_listCtrl.InsertColumn(0, _T("fileName"), LVCFMT_LEFT, rect.Width()/4, 0);
+	ret = m_listCtrl.InsertColumn(1, _T("filePath"), LVCFMT_LEFT, 3* rect.Width() / 4, 1);
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // EXCEPTION: OCX Property Pages should return FALSE
 }

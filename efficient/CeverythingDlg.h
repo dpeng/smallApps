@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "./everything/Everything.h"
 #include<vector>
+#include "afxcmn.h"
 using namespace std;
 // CeverythingDlg dialog
 typedef struct
@@ -28,7 +29,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CEdit m_EditBox;
-	CListBox m_ListBox;
 	vector <SSearchResult> m_searchResult;
 	afx_msg void OnEnChangeKeywordcollector();
+	CListCtrl m_listCtrl;
+	virtual BOOL OnInitDialog();
 };
