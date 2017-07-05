@@ -61,7 +61,7 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	for (int i = 0; i < displaycount; i++)
 	{
 		tmpResult.fileName = Everything_GetResultFileNameA(i);
-		tmpResult.fileName = Everything_GetResultPathA(i);
+		tmpResult.filePath = Everything_GetResultPathA(i);
 		m_searchResult.push_back(tmpResult);
 	}
 	//m_listCtrl.ResetContent();
@@ -69,6 +69,8 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	{
 		tmpResult = m_searchResult.at(i);
 		//m_listCtrl.AddString(tmpResult.fileName);
+		m_listCtrl.InsertItem(i, tmpResult.fileName);
+		m_listCtrl.SetItemText(i, 1, tmpResult.filePath);
 	}
 }
 
@@ -81,8 +83,8 @@ BOOL CeverythingDlg::OnInitDialog()
 	CRect rect;
 	m_listCtrl.GetClientRect(&rect);
 	m_listCtrl.SetExtendedStyle(m_listCtrl.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-	int ret = m_listCtrl.InsertColumn(0, _T("fileName"), LVCFMT_LEFT, rect.Width()/4, 0);
-	ret = m_listCtrl.InsertColumn(1, _T("filePath"), LVCFMT_LEFT, 3* rect.Width() / 4, 1);
+	m_listCtrl.InsertColumn(0, _T("fileName"), LVCFMT_LEFT, rect.Width()/4, 0);
+	m_listCtrl.InsertColumn(1, _T("filePath"), LVCFMT_LEFT, (3* rect.Width())/4, 1);
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }
