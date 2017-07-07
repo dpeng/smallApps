@@ -19,6 +19,9 @@
     <Filter Include="everything">
       <UniqueIdentifier>{cfb6f83b-1f4c-4fd4-9e29-680d7ccc247e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\multiLineListBox">
+      <UniqueIdentifier>{8e3d7ec5-768c-417e-bbfc-176593393105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Configuration.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="CeverythingDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="multiLineListBox\MultiLineListBox.cpp">
+      <Filter>Source Files\multiLineListBox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Configuration.h">
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="CeverythingDlg.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="multiLineListBox\MultiLineListBox.h">
+      <Filter>Source Files\multiLineListBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

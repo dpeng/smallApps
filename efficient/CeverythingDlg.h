@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "./everything/Everything.h"
+#include "./multiLineListBox/MultiLineListBox.h"
 #include<vector>
 #include "afxcmn.h"
 using namespace std;
@@ -31,6 +32,6 @@ public:
 	CEdit m_EditBox;
 	vector <SSearchResult> m_searchResult;
 	afx_msg void OnEnChangeKeywordcollector();
-	CListCtrl m_listCtrl;
 	virtual BOOL OnInitDialog();
+	CMultiLineListBox m_listCtrl;
 };

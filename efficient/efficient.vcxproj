@@ -240,6 +240,7 @@
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="efficient.cpp" />
     <ClCompile Include="efficientDlg.cpp" />
+    <ClCompile Include="multiLineListBox\MultiLineListBox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -257,6 +258,7 @@
     <ClInclude Include="efficient.h" />
     <ClInclude Include="efficientDlg.h" />
     <ClInclude Include="everything\Everything.h" />
+    <ClInclude Include="multiLineListBox\MultiLineListBox.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="tinyXml\tinystr.h" />

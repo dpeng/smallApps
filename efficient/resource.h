@@ -10,25 +10,17 @@
 #define IDD_DIALOG1                     129
 #define IDD_EVERYTHING                  129
 #define IDC_STATIC_HELP                 1000
-#define IDC_LIST1                       1001
-#define IDC_SEARCHLIST1                 1001
 #define IDC_SEARCHRESULTLIST            1001
-#define IDC_COMBO1                      1002
 #define IDC_COMBO_LIST_KEY              1002
 #define IDC_FILE_NAME_EDIT              1003
 #define IDC_OPENFILE                    1004
 #define IDC_OpenFolder                  1005
 #define IDC_SAVE                        1006
 #define IDC_CANCLE                      1007
-#define IDC_RADIO1                      1008
 #define IDC_RADIO_AUTOSTART             1008
-#define IDC_COMBO_LIST_KEY2             1009
 #define IDC_COMBO_LIST_KEY_MASTER       1009
 #define IDC_KEYWORDCOLLECTOR            1009
-#define IDC_RADIO_AUTOSTART2            1010
-#define IDC_FILE_NAME_EDIT2             1010
 #define IDC_SHELLLPPARAMETER            1010
-#define IDC_MFCVSLISTBOX1               1010
 
 // Next default values for new objects
 // 
