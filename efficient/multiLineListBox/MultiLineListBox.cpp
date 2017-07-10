@@ -54,7 +54,8 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	GetItemRect(lpMeasureItemStruct->itemID, &rect);
 	
 	CDC* pDC = GetDC(); 
-	lpMeasureItemStruct->itemHeight = pDC->DrawText(strText, -1, rect, DT_WORDBREAK | DT_CALCRECT); 
+	lpMeasureItemStruct->itemHeight = pDC->DrawText(strText, -1, rect, /*DT_WORDBREAK | */DT_CALCRECT);
+	lpMeasureItemStruct->itemHeight = 48;// fix the line height
 	ReleaseDC(pDC);
 }
 
