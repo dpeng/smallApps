@@ -15,6 +15,36 @@ static char THIS_FILE[] = __FILE__;
 
 CMultiLineListBox::CMultiLineListBox()
 {
+	VERIFY(m_titleFont.CreateFont(
+		24,                        // nHeight
+		0,                         // nWidth
+		0,                         // nEscapement
+		0,                         // nOrientation
+		FW_NORMAL,                 // nWeight
+		FALSE,                     // bItalic
+		FALSE,                     // bUnderline
+		0,                         // cStrikeOut
+		ANSI_CHARSET,              // nCharSet
+		OUT_DEFAULT_PRECIS,        // nOutPrecision
+		CLIP_DEFAULT_PRECIS,       // nClipPrecision
+		DEFAULT_QUALITY,           // nQuality
+		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
+		_T("Arial")));                 // lpszFacename
+	VERIFY(m_subTitleFont.CreateFont(
+		16,                        // nHeight
+		0,                         // nWidth
+		0,                         // nEscapement
+		0,                         // nOrientation
+		FW_NORMAL,                 // nWeight
+		TRUE,                     // bItalic
+		FALSE,                     // bUnderline
+		0,                         // cStrikeOut
+		ANSI_CHARSET,              // nCharSet
+		OUT_DEFAULT_PRECIS,        // nOutPrecision
+		CLIP_DEFAULT_PRECIS,       // nClipPrecision
+		DEFAULT_QUALITY,           // nQuality
+		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
+		_T("Arial")));                 // lpszFacename
 }
 
 CMultiLineListBox::~CMultiLineListBox()
@@ -30,15 +60,16 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CMulitLineListBox message handlers
-void CMultiLineListBox::AppendString(LPCSTR lpszText, COLORREF fgColor, COLORREF bgColor)
+void CMultiLineListBox::AppendString(LPCSTR titleStr, LPCSTR subTitleStr, COLORREF fgColor, COLORREF bgColor)
 {
 	LISTBOX_COLOR* pInfo = new LISTBOX_COLOR;
 
-	pInfo->strText.Format(_T("%s"), lpszText);
+	pInfo->titleStr.Format(_T("%s"), titleStr);
+	pInfo->subTitleStr.Format(_T("%s"), subTitleStr);
 	pInfo->fgColor = fgColor; 
 	pInfo->bgColor = bgColor;
 
-	SetItemDataPtr(AddString(pInfo->strText), pInfo);
+	SetItemDataPtr(AddString(pInfo->titleStr), pInfo);
 }
 
 void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct) 
@@ -54,7 +85,7 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	GetItemRect(lpMeasureItemStruct->itemID, &rect);
 	
 	CDC* pDC = GetDC(); 
-	lpMeasureItemStruct->itemHeight = pDC->DrawText(strText, -1, rect, /*DT_WORDBREAK | */DT_CALCRECT);
+	//lpMeasureItemStruct->itemHeight = pDC->DrawText(strText, -1, rect, /*DT_WORDBREAK | */DT_CALCRECT);
 	lpMeasureItemStruct->itemHeight = 48;// fix the line height
 	ReleaseDC(pDC);
 }
@@ -94,8 +125,18 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	
 	lpDrawItemStruct->rcItem.left += 5;
 	// Draw the text.
-	
-	dc.DrawText(pListBox->strText, pListBox->strText.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK);
+	//////////////////////////////////////
+
+
+	dc.SelectObject(&m_titleFont);
+	//pDC->DrawText(_T("test"), rect, /*DT_WORDBREAK | */DT_CALCRECT| DT_SINGLELINE);
+	dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
+
+	dc.SelectObject(&m_subTitleFont);
+	lpDrawItemStruct->rcItem.top += 24;
+	dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
+
+	//////////////////////////////////////
 	
 	// Reset the background color and the text color back to their
 	// original values.

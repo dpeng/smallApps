@@ -11,12 +11,14 @@
 // CMulitLineListBox window
 typedef struct _LISTBOX_COLOR_
 {
-	CString strText;
+	CString titleStr;
+	CString subTitleStr;
 	COLORREF fgColor;
 	COLORREF bgColor;
 	_LISTBOX_COLOR_()
 	{
-		strText.Empty();
+		titleStr.Empty();
+		subTitleStr.Empty();
 		fgColor = RGB(0, 0, 0);
 		bgColor = RGB(255, 255, 255);
 	}
@@ -30,10 +32,12 @@ public:
 
 // Attributes
 public:
-	void AppendString(LPCSTR lpszText, COLORREF fgColor, COLORREF bgColor);
+	void AppendString(LPCSTR titleStr, LPCSTR subTitleStr, COLORREF fgColor, COLORREF bgColor);
 // Operations
 public:
-	
+
+	CFont m_titleFont;
+	CFont m_subTitleFont;
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMulitLineListBox)

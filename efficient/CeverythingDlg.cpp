@@ -70,8 +70,8 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	for (int i = 0; i < m_searchResult.size(); i++)
 	{
 		tmpResult = m_searchResult.at(i);
-		tmpStr.Format("%s\r%s", tmpResult.fileName, tmpResult.filePath);
-		m_listCtrl.AppendString(tmpStr, RGB(53, 0, 27), RGB(236, 255, 236));
+		//tmpStr.Format("%s\r%s", tmpResult.fileName, tmpResult.filePath);
+		m_listCtrl.AppendString(tmpResult.fileName, tmpResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
 	}
 }
 
@@ -81,11 +81,7 @@ BOOL CeverythingDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	CRect rect;
-	m_listCtrl.GetClientRect(&rect);
-// 	m_listCtrl.SetExtendedStyle(m_listCtrl.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-// 	m_listCtrl.InsertColumn(0, _T(""), LVCFMT_LEFT, rect.Width()/4, 0);//filename
-// 	m_listCtrl.InsertColumn(1, _T(""), LVCFMT_LEFT, (3* rect.Width())/4, 1);//filepath
+	
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }
