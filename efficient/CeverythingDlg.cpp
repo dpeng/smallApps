@@ -93,5 +93,6 @@ void CeverythingDlg::OnLbnDblclkSearchresultlist()
 	nSel = m_listCtrl.GetCurSel();
 	CString s;
 	m_listCtrl.GetText(nSel, s);
+	ShowWindow(SW_HIDE);
 	ShellExecute(g_hWnd, _T("open"), s, _T(""), _T(""), SW_SHOWNORMAL);
 }
