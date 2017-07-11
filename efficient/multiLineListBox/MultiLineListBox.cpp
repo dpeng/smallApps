@@ -49,6 +49,8 @@ CMultiLineListBox::CMultiLineListBox()
 
 CMultiLineListBox::~CMultiLineListBox()
 {
+	m_titleFont.DeleteObject();
+	m_subTitleFont.DeleteObject();
 }
 
 
@@ -63,13 +65,15 @@ END_MESSAGE_MAP()
 void CMultiLineListBox::AppendString(LPCSTR titleStr, LPCSTR subTitleStr, COLORREF fgColor, COLORREF bgColor)
 {
 	LISTBOX_COLOR* pInfo = new LISTBOX_COLOR;
+	CString tmpStr = "";
 
 	pInfo->titleStr.Format(_T("%s"), titleStr);
 	pInfo->subTitleStr.Format(_T("%s"), subTitleStr);
 	pInfo->fgColor = fgColor; 
 	pInfo->bgColor = bgColor;
 
-	SetItemDataPtr(AddString(pInfo->titleStr), pInfo);
+	tmpStr.Format("%s\\%s", subTitleStr, titleStr);
+	SetItemDataPtr(AddString(tmpStr), pInfo);
 }
 
 void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct) 
@@ -125,25 +129,18 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	
 	lpDrawItemStruct->rcItem.left += 5;
 	// Draw the text.
-	//////////////////////////////////////
-
-
 	dc.SelectObject(&m_titleFont);
-	//pDC->DrawText(_T("test"), rect, /*DT_WORDBREAK | */DT_CALCRECT| DT_SINGLELINE);
 	dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 
 	dc.SelectObject(&m_subTitleFont);
 	lpDrawItemStruct->rcItem.top += 24;
 	dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
-
-	//////////////////////////////////////
 	
 	// Reset the background color and the text color back to their
 	// original values.
 	dc.SetTextColor(crOldTextColor);
 	dc.SetBkColor(crOldBkColor);
-	
-	dc.Detach();	
+	dc.Detach();
 }
 
 

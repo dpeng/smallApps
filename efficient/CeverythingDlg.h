@@ -34,4 +34,5 @@ public:
 	afx_msg void OnEnChangeKeywordcollector();
 	virtual BOOL OnInitDialog();
 	CMultiLineListBox m_listCtrl;
+	afx_msg void OnLbnDblclkSearchresultlist();
 };

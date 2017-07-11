@@ -30,6 +30,7 @@ void CeverythingDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CeverythingDlg, CDialog)
 	ON_EN_CHANGE(IDC_KEYWORDCOLLECTOR, &CeverythingDlg::OnEnChangeKeywordcollector)
+	ON_LBN_DBLCLK(IDC_SEARCHRESULTLIST, &CeverythingDlg::OnLbnDblclkSearchresultlist)
 END_MESSAGE_MAP()
 
 
@@ -45,7 +46,6 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	// TODO:  Add your control notification handler code here
 	// got the keyword from user input
 	CString keyWord = "";
-	CString tmpStr = "";
 	SSearchResult tmpResult;
 	m_EditBox.GetWindowTextA(keyWord);
 
@@ -70,7 +70,6 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	for (int i = 0; i < m_searchResult.size(); i++)
 	{
 		tmpResult = m_searchResult.at(i);
-		//tmpStr.Format("%s\r%s", tmpResult.fileName, tmpResult.filePath);
 		m_listCtrl.AppendString(tmpResult.fileName, tmpResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
 	}
 }
@@ -84,4 +83,15 @@ BOOL CeverythingDlg::OnInitDialog()
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
+}
+
+extern HWND g_hWnd;
+void CeverythingDlg::OnLbnDblclkSearchresultlist()
+{
+	// TODO: Add your control notification handler code here
+	int nSel;
+	nSel = m_listCtrl.GetCurSel();
+	CString s;
+	m_listCtrl.GetText(nSel, s);
+	ShellExecute(g_hWnd, _T("open"), s, _T(""), _T(""), SW_SHOWNORMAL);
 }
