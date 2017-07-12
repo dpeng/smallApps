@@ -31,8 +31,11 @@ protected:
 public:
 	CEdit m_EditBox;
 	vector <SSearchResult> m_searchResult;
+	SSearchResult m_tmpSearchResult;
 	afx_msg void OnEnChangeKeywordcollector();
 	virtual BOOL OnInitDialog();
 	CMultiLineListBox m_listCtrl;
 	afx_msg void OnLbnDblclkSearchresultlist();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	void releaseResources();
 };

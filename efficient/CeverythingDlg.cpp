@@ -46,7 +46,6 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	// TODO:  Add your control notification handler code here
 	// got the keyword from user input
 	CString keyWord = "";
-	SSearchResult tmpResult;
 	m_EditBox.GetWindowTextA(keyWord);
 
 	//search by everything
@@ -61,16 +60,16 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	}
 	for (int i = 0; i < displaycount; i++)
 	{
-		tmpResult.fileName = Everything_GetResultFileNameA(i);
-		tmpResult.filePath = Everything_GetResultPathA(i);
-		m_searchResult.push_back(tmpResult);
+		m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
+		m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
+		m_searchResult.push_back(m_tmpSearchResult);
 	}
 
 	m_searchResult.size();
 	for (int i = 0; i < m_searchResult.size(); i++)
 	{
-		tmpResult = m_searchResult.at(i);
-		m_listCtrl.AppendString(tmpResult.fileName, tmpResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
+		m_tmpSearchResult = m_searchResult.at(i);
+		m_listCtrl.AppendString(m_tmpSearchResult.fileName, m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
 	}
 }
 
@@ -93,6 +92,28 @@ void CeverythingDlg::OnLbnDblclkSearchresultlist()
 	nSel = m_listCtrl.GetCurSel();
 	CString s;
 	m_listCtrl.GetText(nSel, s);
-	ShowWindow(SW_HIDE);
+	releaseResources();
 	ShellExecute(g_hWnd, _T("open"), s, _T(""), _T(""), SW_SHOWNORMAL);
+}
+
+
+BOOL CeverythingDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: Add your specialized code here and/or call the base class
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		return true;
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
+	{
+		releaseResources();
+		//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
+		return true;
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}
+void CeverythingDlg::releaseResources()
+{
+	ShowWindow(SW_HIDE);
+	m_searchResult.clear();
+	m_listCtrl.ResetContent();
+	Everything_CleanUp();
 }
