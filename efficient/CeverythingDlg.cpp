@@ -48,6 +48,7 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	// TODO:  Add your control notification handler code here
 	// got the keyword from user input
 	m_EditBox.GetWindowTextA(m_keyWordInEditBox);
+	m_editBoxTextChange = TRUE;
 }
 
 DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
@@ -55,31 +56,35 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 	CeverythingDlg* pThis = (CeverythingDlg*)pParam;
 	while (1)
 	{
-		CString tmpKeyWord = Everything_GetSearchA();
-		if (tmpKeyWord.Compare(pThis->m_keyWordInEditBox))
+		if (pThis->m_editBoxTextChange)
 		{
-			//search by everything
-			Everything_SetSearchA(pThis->m_keyWordInEditBox);
-			Everything_QueryA(TRUE);
-			pThis->m_searchResult.clear();
-			pThis->m_listCtrl.ResetContent();
-			int displaycount = Everything_GetNumResults();
-			if (displaycount > MAX_ITEM_SHOW_IN_LIST)
+			pThis->m_editBoxTextChange = FALSE;
+			CString tmpKeyWord = Everything_GetSearchA();
+			if (tmpKeyWord.Compare(pThis->m_keyWordInEditBox))
 			{
-				displaycount = MAX_ITEM_SHOW_IN_LIST;
-			}
-			for (int i = 0; i < displaycount; i++)
-			{
-				pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
-				pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
-				pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
-			}
+				//search by everything
+				Everything_SetSearchA(pThis->m_keyWordInEditBox);
+				Everything_QueryA(TRUE);
+				pThis->m_searchResult.clear();
+				pThis->m_listCtrl.ResetContent();
+				int displaycount = Everything_GetNumResults();
+				if (displaycount > MAX_ITEM_SHOW_IN_LIST)
+				{
+					displaycount = MAX_ITEM_SHOW_IN_LIST;
+				}
+				for (int i = 0; i < displaycount; i++)
+				{
+					pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
+					pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
+					pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
+				}
 
-			pThis->m_searchResult.size();
-			for (int i = 0; i < pThis->m_searchResult.size(); i++)
-			{
-				pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
-				pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
+				pThis->m_searchResult.size();
+				for (int i = 0; i < pThis->m_searchResult.size(); i++)
+				{
+					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
+					pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
+				}
 			}
 		}
 	}
@@ -93,6 +98,7 @@ BOOL CeverythingDlg::OnInitDialog()
 	// TODO:  Add extra initialization here
 	DWORD threadID;
 	m_keyWordInEditBox = "";
+	m_editBoxTextChange = FALSE;
 	m_queryAndDisplayProcessHandler = CreateThread(NULL, 0, CeverythingDlg::queryAndDisplayProcess, this, 0, &threadID);
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE

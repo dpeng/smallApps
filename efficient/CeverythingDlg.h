@@ -31,6 +31,7 @@ protected:
 public:
 	CEdit m_EditBox;
 	CString m_keyWordInEditBox;
+	BOOL m_editBoxTextChange;
 	vector <SSearchResult> m_searchResult;
 	SSearchResult m_tmpSearchResult;
 	afx_msg void OnEnChangeKeywordcollector();
