@@ -7,6 +7,7 @@
 // MulitLineListBox.h : header file
 //
 
+#define MAX_ITEM_SHOW_IN_LIST 100
 /////////////////////////////////////////////////////////////////////////////
 // CMulitLineListBox window
 typedef struct _LISTBOX_COLOR_
@@ -54,6 +55,7 @@ public:
 protected:
 	//{{AFX_MSG(CMulitLineListBox)
 	afx_msg void OnDestroy();
+	CDC m_dc;
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

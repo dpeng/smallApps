@@ -80,35 +80,25 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
 	// TODO: Add your code to determine the size of specified item
 	ASSERT(lpMeasureItemStruct->CtlType == ODT_LISTBOX);
-	
-	CString strText(_T(""));
-	GetText(lpMeasureItemStruct->itemID, strText);
-	ASSERT(TRUE != strText.IsEmpty());
-
-	CRect rect;
-	GetItemRect(lpMeasureItemStruct->itemID, &rect);
-	
-	CDC* pDC = GetDC(); 
-	//lpMeasureItemStruct->itemHeight = pDC->DrawText(strText, -1, rect, /*DT_WORDBREAK | */DT_CALCRECT);
+	if (lpMeasureItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
+		return;
 	lpMeasureItemStruct->itemHeight = 48;// fix the line height
-	ReleaseDC(pDC);
 }
 
 void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct) 
 {
 	// TODO: Add your code to draw the specified item
 	ASSERT(lpDrawItemStruct->CtlType == ODT_LISTBOX);
-
+	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
+		return;
 	LISTBOX_COLOR* pListBox = (LISTBOX_COLOR*)GetItemDataPtr(lpDrawItemStruct->itemID);
 	ASSERT(NULL != pListBox);
-
-	CDC dc;
-	
-	dc.Attach(lpDrawItemStruct->hDC);
+		
+	m_dc.Attach(lpDrawItemStruct->hDC);
 	
 	// Save these value to restore them when done drawing.
-	COLORREF crOldTextColor = dc.GetTextColor();
-	COLORREF crOldBkColor = dc.GetBkColor();
+	COLORREF crOldTextColor = m_dc.GetTextColor();
+	COLORREF crOldBkColor = m_dc.GetBkColor();
 	
 	// If this item is selected, set the background color 
 	// and the text color to appropriate values. Also, erase
@@ -116,31 +106,31 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if ((lpDrawItemStruct->itemAction | ODA_SELECT) &&
 		(lpDrawItemStruct->itemState & ODS_SELECTED))
 	{
-		dc.SetTextColor(pListBox->bgColor);
-		dc.SetBkColor(pListBox->fgColor);
-		dc.FillSolidRect(&lpDrawItemStruct->rcItem, pListBox->fgColor);
+		m_dc.SetTextColor(pListBox->bgColor);
+		m_dc.SetBkColor(pListBox->fgColor);
+		m_dc.FillSolidRect(&lpDrawItemStruct->rcItem, pListBox->fgColor);
 	}
 	else
 	{
-		dc.SetTextColor(pListBox->fgColor);
-		dc.SetBkColor(pListBox->bgColor);
-		dc.FillSolidRect(&lpDrawItemStruct->rcItem, pListBox->bgColor);
+		m_dc.SetTextColor(pListBox->fgColor);
+		m_dc.SetBkColor(pListBox->bgColor);
+		m_dc.FillSolidRect(&lpDrawItemStruct->rcItem, pListBox->bgColor);
 	}
 	
 	lpDrawItemStruct->rcItem.left += 5;
 	// Draw the text.
-	dc.SelectObject(&m_titleFont);
-	dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
+	m_dc.SelectObject(&m_titleFont);
+	m_dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 
-	dc.SelectObject(&m_subTitleFont);
+	m_dc.SelectObject(&m_subTitleFont);
 	lpDrawItemStruct->rcItem.top += 24;
-	dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
+	m_dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 	
 	// Reset the background color and the text color back to their
 	// original values.
-	dc.SetTextColor(crOldTextColor);
-	dc.SetBkColor(crOldBkColor);
-	dc.Detach();
+	m_dc.SetTextColor(crOldTextColor);
+	m_dc.SetBkColor(crOldBkColor);
+	m_dc.Detach();
 }
 
 

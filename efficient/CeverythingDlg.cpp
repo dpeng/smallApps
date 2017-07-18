@@ -54,9 +54,9 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	m_searchResult.clear();
 	m_listCtrl.ResetContent();
 	int displaycount = Everything_GetNumResults();
-	if (displaycount > 100)
+	if (displaycount > MAX_ITEM_SHOW_IN_LIST)
 	{
-		displaycount = 100;
+		displaycount = MAX_ITEM_SHOW_IN_LIST;
 	}
 	for (int i = 0; i < displaycount; i++)
 	{
