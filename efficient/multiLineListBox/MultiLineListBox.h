@@ -7,7 +7,7 @@
 // MulitLineListBox.h : header file
 //
 
-#define MAX_ITEM_SHOW_IN_LIST 100
+#define MAX_ITEM_SHOW_IN_LIST 4096
 /////////////////////////////////////////////////////////////////////////////
 // CMulitLineListBox window
 typedef struct _LISTBOX_COLOR_

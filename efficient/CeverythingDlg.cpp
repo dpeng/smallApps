@@ -65,6 +65,47 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				//search by everything
 				Everything_SetSearchA(pThis->m_keyWordInEditBox);
 				Everything_QueryA(TRUE);
+				CString tmpErrorMsg = "";
+				int everythingErrorCode = Everything_GetLastError();
+				switch (everythingErrorCode)
+				{
+				case EVERYTHING_OK:
+					tmpErrorMsg = "EVERYTHING: everthing is ok";
+					break;
+				case EVERYTHING_ERROR_MEMORY:
+					tmpErrorMsg = "EVERYTHING: out of memory";
+					break;
+				case EVERYTHING_ERROR_IPC:
+					tmpErrorMsg = "EVERYTHING: search client is not running";
+					break;
+				case EVERYTHING_ERROR_REGISTERCLASSEX:
+					tmpErrorMsg = "EVERYTHING: unable to register window class";
+					break;
+				case EVERYTHING_ERROR_CREATEWINDOW:
+					tmpErrorMsg = "EVERYTHING: unable to create listening window";
+					break;
+				case EVERYTHING_ERROR_CREATETHREAD:
+					tmpErrorMsg = "EVERYTHING: unable to create listening thread";
+					break;
+				case EVERYTHING_ERROR_INVALIDINDEX:
+					tmpErrorMsg = "EVERYTHING: invalid index";
+					break;
+				case EVERYTHING_ERROR_INVALIDCALL:
+					tmpErrorMsg = "EVERYTHING: invalid call";
+					break;
+				case EVERYTHING_ERROR_INVALIDREQUEST:
+					tmpErrorMsg = "EVERYTHING: invalid request data, request data first";
+					break;
+				case EVERYTHING_ERROR_INVALIDPARAMETER:
+					tmpErrorMsg = "EVERYTHING: bad parameter";
+					break;
+				default:
+					break;
+				}
+				if (everythingErrorCode != EVERYTHING_OK)
+				{
+					pThis->MessageBox(tmpErrorMsg);
+				}
 				pThis->m_searchResult.clear();
 				pThis->m_listCtrl.ResetContent();
 				int displaycount = Everything_GetNumResults();
