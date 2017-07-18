@@ -92,7 +92,8 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
 		return;
 	LISTBOX_COLOR* pListBox = (LISTBOX_COLOR*)GetItemDataPtr(lpDrawItemStruct->itemID);
-	ASSERT(NULL != pListBox);
+	if (pListBox == NULL)
+		return;
 		
 	m_dc.Attach(lpDrawItemStruct->hDC);
 	

@@ -30,6 +30,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CEdit m_EditBox;
+	CString m_keyWordInEditBox;
 	vector <SSearchResult> m_searchResult;
 	SSearchResult m_tmpSearchResult;
 	afx_msg void OnEnChangeKeywordcollector();
@@ -38,4 +39,6 @@ public:
 	afx_msg void OnLbnDblclkSearchresultlist();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	void releaseResources();
+	HANDLE m_queryAndDisplayProcessHandler;
+	static DWORD WINAPI queryAndDisplayProcess(LPVOID pParam);
 };

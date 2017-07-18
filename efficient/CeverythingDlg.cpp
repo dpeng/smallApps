@@ -18,6 +18,8 @@ CeverythingDlg::CeverythingDlg(CWnd* pParent /*=NULL*/)
 
 CeverythingDlg::~CeverythingDlg()
 {
+	TerminateThread(m_queryAndDisplayProcessHandler, 0); 
+	releaseResources();
 }
 
 void CeverythingDlg::DoDataExchange(CDataExchange* pDX)
@@ -45,41 +47,53 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 
 	// TODO:  Add your control notification handler code here
 	// got the keyword from user input
-	CString keyWord = "";
-	m_EditBox.GetWindowTextA(keyWord);
-
-	//search by everything
-	Everything_SetSearchA(keyWord);
-	Everything_QueryA(TRUE);
-	m_searchResult.clear();
-	m_listCtrl.ResetContent();
-	int displaycount = Everything_GetNumResults();
-	if (displaycount > MAX_ITEM_SHOW_IN_LIST)
-	{
-		displaycount = MAX_ITEM_SHOW_IN_LIST;
-	}
-	for (int i = 0; i < displaycount; i++)
-	{
-		m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
-		m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
-		m_searchResult.push_back(m_tmpSearchResult);
-	}
-
-	m_searchResult.size();
-	for (int i = 0; i < m_searchResult.size(); i++)
-	{
-		m_tmpSearchResult = m_searchResult.at(i);
-		m_listCtrl.AppendString(m_tmpSearchResult.fileName, m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
-	}
+	m_EditBox.GetWindowTextA(m_keyWordInEditBox);
 }
 
+DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
+{
+	CeverythingDlg* pThis = (CeverythingDlg*)pParam;
+	while (1)
+	{
+		CString tmpKeyWord = Everything_GetSearchA();
+		if (tmpKeyWord.Compare(pThis->m_keyWordInEditBox))
+		{
+			//search by everything
+			Everything_SetSearchA(pThis->m_keyWordInEditBox);
+			Everything_QueryA(TRUE);
+			pThis->m_searchResult.clear();
+			pThis->m_listCtrl.ResetContent();
+			int displaycount = Everything_GetNumResults();
+			if (displaycount > MAX_ITEM_SHOW_IN_LIST)
+			{
+				displaycount = MAX_ITEM_SHOW_IN_LIST;
+			}
+			for (int i = 0; i < displaycount; i++)
+			{
+				pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
+				pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
+				pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
+			}
+
+			pThis->m_searchResult.size();
+			for (int i = 0; i < pThis->m_searchResult.size(); i++)
+			{
+				pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
+				pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
+			}
+		}
+	}
+	return 0;
+}
 
 BOOL CeverythingDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	
+	DWORD threadID;
+	m_keyWordInEditBox = "";
+	m_queryAndDisplayProcessHandler = CreateThread(NULL, 0, CeverythingDlg::queryAndDisplayProcess, this, 0, &threadID);
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -116,4 +130,6 @@ void CeverythingDlg::releaseResources()
 	m_searchResult.clear();
 	m_listCtrl.ResetContent();
 	Everything_CleanUp();
+	CloseHandle(m_queryAndDisplayProcessHandler);
+	m_queryAndDisplayProcessHandler = NULL;
 }
