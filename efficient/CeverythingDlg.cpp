@@ -176,6 +176,8 @@ void CeverythingDlg::releaseResources()
 	ShowWindow(SW_HIDE);
 	m_searchResult.clear();
 	m_listCtrl.ResetContent();
+	m_EditBox.SetSel(0, -1);
+	m_EditBox.Clear();
 	Everything_CleanUp();
 	CloseHandle(m_queryAndDisplayProcessHandler);
 	m_queryAndDisplayProcessHandler = NULL;
