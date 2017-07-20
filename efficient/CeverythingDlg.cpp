@@ -128,6 +128,10 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				}
 			}
 		}
+		else
+		{
+			Sleep(1);
+		}
 	}
 	return 0;
 }
