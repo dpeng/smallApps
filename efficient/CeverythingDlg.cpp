@@ -121,6 +121,18 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				}
 
 				pThis->m_searchResult.size();
+
+				if (displaycount < 10)
+					pThis->m_rc.bottom = 48.1 * displaycount + 200;
+				else
+					pThis->m_rc.bottom = 48.1 * 10 +200;
+				pThis->MoveWindow(pThis->m_rc);
+				CRect listRc;
+				listRc = pThis->m_rc;
+				listRc.top = 40;
+				listRc.bottom += 40;
+				listRc.left = 0;
+				pThis->m_listCtrl.MoveWindow(listRc);
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
 					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
@@ -141,6 +153,23 @@ BOOL CeverythingDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
+	//set the main window place
+	m_screenx = GetSystemMetrics(SM_CXSCREEN);
+	m_screeny = GetSystemMetrics(SM_CYSCREEN);
+	GetClientRect(&m_rc);
+	m_rc.top = m_screeny / 4;
+	m_rc.bottom += m_screeny / 4;
+	m_rc.left = m_screenx / 5;
+	m_rc.right = m_screenx * 4 / 5;
+	MoveWindow(m_rc);
+	//m_EditBox.MoveWindow(rc);
+
+	CRect listRc;
+	listRc = m_rc;
+	listRc.top = 40;
+	listRc.left = 0;
+	m_listCtrl.MoveWindow(listRc);
+
 	DWORD threadID;
 	m_keyWordInEditBox = "";
 	m_editBoxTextChange = FALSE;

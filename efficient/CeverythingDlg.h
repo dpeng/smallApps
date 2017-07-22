@@ -42,4 +42,7 @@ public:
 	void releaseResources();
 	HANDLE m_queryAndDisplayProcessHandler;
 	static DWORD WINAPI queryAndDisplayProcess(LPVOID pParam);
+	int m_screenx;
+	int m_screeny;
+	CRect m_rc;
 };
