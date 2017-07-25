@@ -123,9 +123,9 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				pThis->m_searchResult.size();
 
 				if (displaycount < 10)
-					pThis->m_rc.bottom = 48.1 * displaycount + 200;
+					pThis->m_rc.bottom = (LONG)(48.1 * displaycount + 200);
 				else
-					pThis->m_rc.bottom = 48.1 * 10 +200;
+					pThis->m_rc.bottom = (LONG)(48.1 * 10 +200);
 				pThis->MoveWindow(pThis->m_rc);
 				CRect listRc;
 				listRc = pThis->m_rc;
