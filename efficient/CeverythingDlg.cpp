@@ -120,19 +120,11 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 					pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
 				}
 
-				pThis->m_searchResult.size();
+				displaycount = displaycount < 10 ? displaycount : 10;
 
-				if (displaycount < 10)
-					pThis->m_rc.bottom = (LONG)(48.1 * displaycount + 200);
-				else
-					pThis->m_rc.bottom = (LONG)(48.1 * 10 +200);
-				pThis->MoveWindow(pThis->m_rc);
-				CRect listRc;
-				listRc = pThis->m_rc;
-				listRc.top = 40;
-				listRc.bottom += 40;
-				listRc.left = 0;
-				pThis->m_listCtrl.MoveWindow(listRc);
+				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(41.8 * displaycount + 263)));
+				pThis->m_listCtrl.MoveWindow(CRect(0, 40, pThis->m_rc.right, (LONG)(41.8 * displaycount + 303)));
+
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
 					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
@@ -162,13 +154,7 @@ BOOL CeverythingDlg::OnInitDialog()
 	m_rc.left = m_screenx / 5;
 	m_rc.right = m_screenx * 4 / 5;
 	MoveWindow(m_rc);
-	//m_EditBox.MoveWindow(rc);
-
-	CRect listRc;
-	listRc = m_rc;
-	listRc.top = 40;
-	listRc.left = 0;
-	m_listCtrl.MoveWindow(listRc);
+	m_listCtrl.MoveWindow(CRect(0, 40, 0, 0));
 
 	DWORD threadID;
 	m_keyWordInEditBox = "";
@@ -199,7 +185,6 @@ BOOL CeverythingDlg::PreTranslateMessage(MSG* pMsg)
 	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
 	{
 		releaseResources();
-		//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
 		return true;
 	}
 	return CDialog::PreTranslateMessage(pMsg);
@@ -211,6 +196,10 @@ void CeverythingDlg::releaseResources()
 	m_listCtrl.ResetContent();
 	m_EditBox.SetSel(0, -1);
 	m_EditBox.Clear();
+	//move the window to default place
+	MoveWindow(m_rc);
+	m_listCtrl.MoveWindow(CRect (0, 40, 0, 0));
+
 	Everything_CleanUp();
 	CloseHandle(m_queryAndDisplayProcessHandler);
 	m_queryAndDisplayProcessHandler = NULL;
