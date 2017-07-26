@@ -33,6 +33,7 @@ void CeverythingDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CeverythingDlg, CDialog)
 	ON_EN_CHANGE(IDC_KEYWORDCOLLECTOR, &CeverythingDlg::OnEnChangeKeywordcollector)
 	ON_LBN_DBLCLK(IDC_SEARCHRESULTLIST, &CeverythingDlg::OnLbnDblclkSearchresultlist)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -203,4 +204,19 @@ void CeverythingDlg::releaseResources()
 	Everything_CleanUp();
 	CloseHandle(m_queryAndDisplayProcessHandler);
 	m_queryAndDisplayProcessHandler = NULL;
+}
+
+HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if ((CTLCOLOR_EDIT == nCtlColor) && (IDC_KEYWORDCOLLECTOR == pWnd->GetDlgCtrlID()) )
+	{
+		pDC->SetBkColor(RGB(64, 64, 64));
+		pDC->SetTextColor(RGB(192, 192, 192));
+		hbr = CreateSolidBrush(RGB(64, 64, 64));
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return hbr;
 }

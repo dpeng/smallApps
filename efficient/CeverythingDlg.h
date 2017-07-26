@@ -45,4 +45,5 @@ public:
 	int m_screenx;
 	int m_screeny;
 	CRect m_rc;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
