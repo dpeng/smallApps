@@ -124,7 +124,7 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				displaycount = displaycount < 10 ? displaycount : 10;
 
 				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + 41.8 * displaycount)));
-				pThis->m_listCtrl.MoveWindow(CRect(0, 40, (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom + 41.8 * displaycount - pThis->m_rc.top)));
+				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + 41.8 * displaycount)));
 
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
@@ -150,8 +150,8 @@ BOOL CeverythingDlg::OnInitDialog()
 	m_screenx = GetSystemMetrics(SM_CXSCREEN);
 	m_screeny = GetSystemMetrics(SM_CYSCREEN);
 	GetClientRect(&m_rc);
-	m_rc.top = m_screeny / 4;
-	m_rc.bottom += m_screeny / 4;
+	m_rc.top = m_screeny * 0.191;
+	m_rc.bottom += m_screeny * 0.191;
 	m_rc.left = m_screenx * 0.191;//(1-0.618)/2
 	m_rc.right = m_screenx * 0.809;
 	MoveWindow(m_rc);
@@ -216,6 +216,12 @@ HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetBkColor(RGB(64, 64, 64));
 		pDC->SetTextColor(RGB(192, 192, 192));
 		hbr = CreateSolidBrush(RGB(64, 64, 64));
+	}
+	if (CTLCOLOR_DLG == nCtlColor)
+	{
+		pDC->SetBkColor(RGB(80, 80, 80));
+		pDC->SetTextColor(RGB(192, 192, 192));
+		hbr = CreateSolidBrush(RGB(80, 80, 80));
 	}
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
