@@ -123,8 +123,8 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 
 				displaycount = displaycount < 10 ? displaycount : 10;
 
-				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(41.8 * displaycount + 263)));
-				pThis->m_listCtrl.MoveWindow(CRect(0, 40, (pThis->m_rc.right - pThis->m_rc.left), (LONG)(41.8 * displaycount + 303)));
+				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + 41.8 * displaycount)));
+				pThis->m_listCtrl.MoveWindow(CRect(0, 40, (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom + 41.8 * displaycount - pThis->m_rc.top)));
 
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
@@ -152,8 +152,8 @@ BOOL CeverythingDlg::OnInitDialog()
 	GetClientRect(&m_rc);
 	m_rc.top = m_screeny / 4;
 	m_rc.bottom += m_screeny / 4;
-	m_rc.left = m_screenx / 5;
-	m_rc.right = m_screenx * 4 / 5;
+	m_rc.left = m_screenx * 0.191;//(1-0.618)/2
+	m_rc.right = m_screenx * 0.809;
 	MoveWindow(m_rc);
 	m_listCtrl.MoveWindow(CRect(0, 40, 0, 0));
 
