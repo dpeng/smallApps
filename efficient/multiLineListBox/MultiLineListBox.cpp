@@ -82,18 +82,27 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	ASSERT(lpMeasureItemStruct->CtlType == ODT_LISTBOX);
 	if (lpMeasureItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
 		return;
-	lpMeasureItemStruct->itemHeight = SEARCHRESULTITEMHEIGHT;// fix the line height
+	CString strText(_T(""));
+	GetText(lpMeasureItemStruct->itemID, strText);
+	if (strstr(strText, MAGIC_STRING_FOR_LAST_DRAW))
+	{
+		lpMeasureItemStruct->itemHeight = 0;
+	}
+	else
+	{
+		lpMeasureItemStruct->itemHeight = SEARCHRESULTITEMHEIGHT;// fix the line height
+	}
 }
 
 void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct) 
 {
 	// TODO: Add your code to draw the specified item
+	if (NULL == lpDrawItemStruct) return;
 	ASSERT(lpDrawItemStruct->CtlType == ODT_LISTBOX);
-	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
-		return;
+	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)  return;
 	LISTBOX_COLOR* pListBox = (LISTBOX_COLOR*)GetItemDataPtr(lpDrawItemStruct->itemID);
-	if (pListBox == NULL)
-		return;
+	if (pListBox == NULL)  return;
+	if (strstr(pListBox->titleStr, MAGIC_STRING_FOR_LAST_DRAW)) return;
 		
 	m_dc.Attach(lpDrawItemStruct->hDC);
 	

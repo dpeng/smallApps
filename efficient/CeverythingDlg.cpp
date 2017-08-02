@@ -131,6 +131,7 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
 					pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(192, 192, 192), RGB(0, 43, 54));
 				}
+				pThis->m_listCtrl.AppendString(MAGIC_STRING_FOR_LAST_DRAW, MAGIC_STRING_FOR_LAST_DRAW, RGB(192, 192, 192), RGB(0, 43, 54));
 			}
 		}
 		else

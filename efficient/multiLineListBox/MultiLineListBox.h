@@ -11,6 +11,7 @@
 #define TITLE_STRING_FONT_HEIGHT 24
 #define SUBTITLE_STRING_FONT_HEIGHT 16
 #define SEARCHRESULTITEMHEIGHT (TITLE_STRING_FONT_HEIGHT + SUBTITLE_STRING_FONT_HEIGHT + 4)
+#define MAGIC_STRING_FOR_LAST_DRAW _T("abdcefhgpdffdpcasperrepsac")
 /////////////////////////////////////////////////////////////////////////////
 // CMulitLineListBox window
 typedef struct _LISTBOX_COLOR_
