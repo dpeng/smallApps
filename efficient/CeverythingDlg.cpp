@@ -150,10 +150,10 @@ BOOL CeverythingDlg::OnInitDialog()
 	m_screenx = GetSystemMetrics(SM_CXSCREEN);
 	m_screeny = GetSystemMetrics(SM_CYSCREEN);
 	GetClientRect(&m_rc);
-	m_rc.top = m_screeny * 0.191;
-	m_rc.bottom += m_screeny * 0.191;
-	m_rc.left = m_screenx * 0.191;//(1-0.618)/2
-	m_rc.right = m_screenx * 0.809;
+	m_rc.top = (LONG)(m_screeny * 0.191);
+	m_rc.bottom += (LONG)(m_screeny * 0.191);
+	m_rc.left = (LONG)(m_screenx * 0.191);//(1-0.618)/2
+	m_rc.right = (LONG)(m_screenx * 0.809);
 	MoveWindow(m_rc);
 	m_listCtrl.MoveWindow(CRect(0, 40, 0, 0));
 
@@ -169,8 +169,7 @@ extern HWND g_hWnd;
 void CeverythingDlg::OnLbnDblclkSearchresultlist()
 {
 	// TODO: Add your control notification handler code here
-	int nSel;
-	nSel = m_listCtrl.GetCurSel();
+	int nSel = m_listCtrl.GetCurSel();
 	CString s;
 	m_listCtrl.GetText(nSel, s);
 	releaseResources();
@@ -182,11 +181,26 @@ BOOL CeverythingDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+	{
+		if (IDC_SEARCHRESULTLIST == (CWnd::GetFocus())->GetDlgCtrlID())
+		{
+			OnLbnDblclkSearchresultlist();
+		}
 		return true;
+	}
 	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
 	{
 		releaseResources();
 		return true;
+	}
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_DOWN)
+	{
+		if (IDC_KEYWORDCOLLECTOR == (CWnd::GetFocus())->GetDlgCtrlID())
+		{
+			m_listCtrl.SetFocus();
+			m_listCtrl.SetCurSel(0);
+			return true;
+		}
 	}
 	return CDialog::PreTranslateMessage(pMsg);
 }
