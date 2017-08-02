@@ -237,6 +237,7 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 				if (bAltKeyDonw)
 				{
 					g_everythingDlg.ShowWindow(SW_SHOW);
+					g_everythingDlg.m_EditBox.SetFocus();
 					//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
 				}
 				break;
