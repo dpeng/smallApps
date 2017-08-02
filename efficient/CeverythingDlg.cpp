@@ -123,13 +123,13 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 
 				displaycount = displaycount < 10 ? displaycount : 10;
 
-				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + 41.8 * displaycount)));
-				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + 41.8 * displaycount)));
+				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCHRESULTITEMHEIGHT * displaycount)));
+				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCHRESULTITEMHEIGHT * displaycount)));
 
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
 					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
-					pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(53, 0, 27), RGB(236, 255, 236));
+					pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(192, 192, 192), RGB(0, 43, 54));
 				}
 			}
 		}
@@ -227,15 +227,15 @@ HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Change any attributes of the DC here
 	if ((CTLCOLOR_EDIT == nCtlColor) && (IDC_KEYWORDCOLLECTOR == pWnd->GetDlgCtrlID()) )
 	{
-		pDC->SetBkColor(RGB(64, 64, 64));
+		pDC->SetBkColor(RGB(0, 35, 46));
 		pDC->SetTextColor(RGB(192, 192, 192));
-		hbr = CreateSolidBrush(RGB(64, 64, 64));
+		hbr = CreateSolidBrush(RGB(0, 35, 46));
 	}
 	if (CTLCOLOR_DLG == nCtlColor)
 	{
-		pDC->SetBkColor(RGB(80, 80, 80));
+		pDC->SetBkColor(RGB(0, 43, 54));
 		pDC->SetTextColor(RGB(192, 192, 192));
-		hbr = CreateSolidBrush(RGB(80, 80, 80));
+		hbr = CreateSolidBrush(RGB(0, 43, 54));
 	}
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;

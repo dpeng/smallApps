@@ -16,7 +16,7 @@ static char THIS_FILE[] = __FILE__;
 CMultiLineListBox::CMultiLineListBox()
 {
 	VERIFY(m_titleFont.CreateFont(
-		24,                        // nHeight
+		TITLE_STRING_FONT_HEIGHT,  // nHeight
 		0,                         // nWidth
 		0,                         // nEscapement
 		0,                         // nOrientation
@@ -31,7 +31,7 @@ CMultiLineListBox::CMultiLineListBox()
 		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
 		_T("Arial")));                 // lpszFacename
 	VERIFY(m_subTitleFont.CreateFont(
-		16,                        // nHeight
+		SUBTITLE_STRING_FONT_HEIGHT,// nHeight
 		0,                         // nWidth
 		0,                         // nEscapement
 		0,                         // nOrientation
@@ -82,7 +82,7 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	ASSERT(lpMeasureItemStruct->CtlType == ODT_LISTBOX);
 	if (lpMeasureItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)
 		return;
-	lpMeasureItemStruct->itemHeight = 48;// fix the line height
+	lpMeasureItemStruct->itemHeight = SEARCHRESULTITEMHEIGHT;// fix the line height
 }
 
 void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct) 
@@ -124,7 +124,7 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	m_dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 
 	m_dc.SelectObject(&m_subTitleFont);
-	lpDrawItemStruct->rcItem.top += 24;
+	lpDrawItemStruct->rcItem.top += TITLE_STRING_FONT_HEIGHT;
 	m_dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 	
 	// Reset the background color and the text color back to their

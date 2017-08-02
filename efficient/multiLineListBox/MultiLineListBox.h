@@ -8,6 +8,9 @@
 //
 
 #define MAX_ITEM_SHOW_IN_LIST 4096
+#define TITLE_STRING_FONT_HEIGHT 24
+#define SUBTITLE_STRING_FONT_HEIGHT 16
+#define SEARCHRESULTITEMHEIGHT (TITLE_STRING_FONT_HEIGHT + SUBTITLE_STRING_FONT_HEIGHT + 4)
 /////////////////////////////////////////////////////////////////////////////
 // CMulitLineListBox window
 typedef struct _LISTBOX_COLOR_
