@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CeverythingDlg, CDialog)
 	ON_EN_CHANGE(IDC_KEYWORDCOLLECTOR, &CeverythingDlg::OnEnChangeKeywordcollector)
 	ON_LBN_DBLCLK(IDC_SEARCHRESULTLIST, &CeverythingDlg::OnLbnDblclkSearchresultlist)
 	ON_WM_CTLCOLOR()
+	ON_WM_NCHITTEST()
 END_MESSAGE_MAP()
 
 
@@ -149,14 +150,11 @@ BOOL CeverythingDlg::OnInitDialog()
 	//set the main window place
 	m_screenx = GetSystemMetrics(SM_CXSCREEN);
 	m_screeny = GetSystemMetrics(SM_CYSCREEN);
-	GetClientRect(&m_rc);
 	m_rc.top = (LONG)(m_screeny * 0.191);//(1-0.618)/2
 	m_rc.bottom = m_rc.top + 50;
 	m_rc.left = (LONG)(m_screenx * 0.22);
 	m_rc.right = (LONG)(m_screenx * 0.76);
-	MoveWindow(m_rc);
-	m_listCtrl.MoveWindow(CRect(0, 50, 0, 0));
-	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
+	moveEverythingDialogWindow();
 
 	DWORD threadID;
 	m_keyWordInEditBox = "";
@@ -213,9 +211,7 @@ void CeverythingDlg::releaseResources()
 	m_EditBox.SetSel(0, -1);
 	m_EditBox.Clear();
 	//move the window to default place
-	MoveWindow(m_rc);
-	m_listCtrl.MoveWindow(CRect (0, 50, 0, 0));
-	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
+	moveEverythingDialogWindow();
 
 	Everything_CleanUp();
 	CloseHandle(m_queryAndDisplayProcessHandler);
@@ -242,3 +238,27 @@ HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
 }
+
+
+LRESULT CeverythingDlg::OnNcHitTest(CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+    UINT nHitTest = CDialog::OnNcHitTest(point);
+ 	if(nHitTest==HTCLIENT)
+	{ 	
+		GetClientRect(&m_rc);
+		ClientToScreen(m_rc);
+		m_rc.bottom = m_rc.top + 50;
+		return HTCAPTION;
+	}
+	else
+		return nHitTest;
+}
+
+void CeverythingDlg::moveEverythingDialogWindow(void)
+{
+	MoveWindow(m_rc);
+	m_listCtrl.MoveWindow(CRect (0, 50, 0, 0));
+	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
+}
+
