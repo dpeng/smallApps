@@ -122,7 +122,6 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				}
 
 				displaycount = displaycount < 10 ? displaycount : 10;
-
 				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCHRESULTITEMHEIGHT * displaycount)));
 				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCHRESULTITEMHEIGHT * displaycount)));
 
@@ -151,12 +150,13 @@ BOOL CeverythingDlg::OnInitDialog()
 	m_screenx = GetSystemMetrics(SM_CXSCREEN);
 	m_screeny = GetSystemMetrics(SM_CYSCREEN);
 	GetClientRect(&m_rc);
-	m_rc.top = (LONG)(m_screeny * 0.191);
-	m_rc.bottom += (LONG)(m_screeny * 0.191);
-	m_rc.left = (LONG)(m_screenx * 0.191);//(1-0.618)/2
-	m_rc.right = (LONG)(m_screenx * 0.809);
+	m_rc.top = (LONG)(m_screeny * 0.191);//(1-0.618)/2
+	m_rc.bottom = m_rc.top + 50;
+	m_rc.left = (LONG)(m_screenx * 0.22);
+	m_rc.right = (LONG)(m_screenx * 0.76);
 	MoveWindow(m_rc);
-	m_listCtrl.MoveWindow(CRect(0, 40, 0, 0));
+	m_listCtrl.MoveWindow(CRect(0, 50, 0, 0));
+	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
 
 	DWORD threadID;
 	m_keyWordInEditBox = "";
@@ -214,7 +214,8 @@ void CeverythingDlg::releaseResources()
 	m_EditBox.Clear();
 	//move the window to default place
 	MoveWindow(m_rc);
-	m_listCtrl.MoveWindow(CRect (0, 40, 0, 0));
+	m_listCtrl.MoveWindow(CRect (0, 50, 0, 0));
+	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
 
 	Everything_CleanUp();
 	CloseHandle(m_queryAndDisplayProcessHandler);
@@ -228,9 +229,9 @@ HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Change any attributes of the DC here
 	if ((CTLCOLOR_EDIT == nCtlColor) && (IDC_KEYWORDCOLLECTOR == pWnd->GetDlgCtrlID()) )
 	{
-		pDC->SetBkColor(RGB(0, 35, 46));
+		pDC->SetBkColor(RGB(40, 86, 104));
 		pDC->SetTextColor(RGB(192, 192, 192));
-		hbr = CreateSolidBrush(RGB(0, 35, 46));
+		hbr = CreateSolidBrush(RGB(0, 86, 104));
 	}
 	if (CTLCOLOR_DLG == nCtlColor)
 	{
