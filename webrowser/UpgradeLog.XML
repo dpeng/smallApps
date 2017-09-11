@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="myweb">
+</Property><Property Name="Solution File" Value="D:\other\document\dahua\work_before\VC2005\myweb\myweb.sln">
+</Property><Property Name="User Options File" Value="D:\other\document\dahua\work_before\VC2005\myweb\myweb.suo">
+</Property><Property Name="Date" Value="2013年4月25日">
+</Property><Property Name="Time" Value="15:30">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="myweb.sln" Description="File successfully backed up as D:\other\document\dahua\work_before\VC2005\myweb\myweb.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="myweb.suo" Description="File successfully backed up as D:\other\document\dahua\work_before\VC2005\myweb\myweb.suo.old">
+</Event><Event ErrorLevel="0" Project="myweb" Source="myweb.vcproj" Description="Converting project file 'd:\other\document\dahua\work_before\VC2005\myweb\myweb.vcproj'.">
+</Event><Event ErrorLevel="1" Project="myweb" Source="myweb.vcproj" Description="This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project.">
+</Event><Event ErrorLevel="1" Project="myweb" Source="myweb.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="myweb" Source="myweb.vcproj" Description="Web deployment to the local IIS server is no longer supported. The Web Deployment build tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="myweb" Source="myweb.vcproj" Description="MSB8012: $(TargetPath) ('d:\other\document\dahua\work_before\VC2005\myweb\.\Release\myweb.exe') does not match the Linker's OutputFile property value '.\Release/myweb.exe' ('D:\other\document\dahua\work_before\VC2005\myweb\Release/myweb.exe') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="1" Project="myweb" Source="myweb.vcproj" Description="MSB8012: $(TargetPath) ('d:\other\document\dahua\work_before\VC2005\myweb\.\Debug\myweb.exe') does not match the Linker's OutputFile property value '.\Debug/myweb.exe' ('D:\other\document\dahua\work_before\VC2005\myweb\Debug/myweb.exe') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="0" Project="myweb" Source="myweb.vcproj" Description="Done converting to new project file 'd:\other\document\dahua\work_before\VC2005\myweb\myweb.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="myweb" Source="myweb.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="myweb.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="myweb.sln" Description="Converted">
+</Event></UpgradeLog>
