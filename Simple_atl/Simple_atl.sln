@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simple_atl", "Simple_atl\Simple_atl.vcproj", "{0F99FFE1-9594-432D-9F0B-BAFB2430DD72}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simple_atlPS", "Simple_atl\Simple_atlPS.vcproj", "{03A2F53B-253E-40CC-A091-3AC52A20E9A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F99FFE1-9594-432D-9F0B-BAFB2430DD72} = {0F99FFE1-9594-432D-9F0B-BAFB2430DD72}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_atl", "..\Test_atl\Test_atl\Test_atl.vcproj", "{00F82FC5-3072-4EDD-B313-8E6C5932993C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F99FFE1-9594-432D-9F0B-BAFB2430DD72}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0F99FFE1-9594-432D-9F0B-BAFB2430DD72}.Debug|Win32.Build.0 = Debug|Win32
+		{0F99FFE1-9594-432D-9F0B-BAFB2430DD72}.Release|Win32.ActiveCfg = Release|Win32
+		{0F99FFE1-9594-432D-9F0B-BAFB2430DD72}.Release|Win32.Build.0 = Release|Win32
+		{03A2F53B-253E-40CC-A091-3AC52A20E9A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{03A2F53B-253E-40CC-A091-3AC52A20E9A3}.Release|Win32.ActiveCfg = Release|Win32
+		{00F82FC5-3072-4EDD-B313-8E6C5932993C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{00F82FC5-3072-4EDD-B313-8E6C5932993C}.Debug|Win32.Build.0 = Debug|Win32
+		{00F82FC5-3072-4EDD-B313-8E6C5932993C}.Release|Win32.ActiveCfg = Release|Win32
+		{00F82FC5-3072-4EDD-B313-8E6C5932993C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

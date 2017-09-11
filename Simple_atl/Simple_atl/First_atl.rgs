@@ -1,0 +1,27 @@
+HKCR
+{
+	Simple_atl.First_atl.1 = s 'First_atl Class'
+	{
+		CLSID = s '{3AAAB2F8-CB0F-445D-9057-5F6042DC4AAF}'
+	}
+	Simple_atl.First_atl = s 'First_atl Class'
+	{
+		CLSID = s '{3AAAB2F8-CB0F-445D-9057-5F6042DC4AAF}'
+		CurVer = s 'Simple_atl.First_atl.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3AAAB2F8-CB0F-445D-9057-5F6042DC4AAF} = s 'First_atl Class'
+		{
+			ProgID = s 'Simple_atl.First_atl.1'
+			VersionIndependentProgID = s 'Simple_atl.First_atl'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{6DAA9F46-4AC8-428F-A0F3-3CF3EBE11F34}'
+		}
+	}
+}

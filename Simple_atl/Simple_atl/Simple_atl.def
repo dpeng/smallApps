@@ -1,0 +1,9 @@
+; Simple_atl.def : Declares the module parameters.
+
+LIBRARY      "Simple_atl.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE
