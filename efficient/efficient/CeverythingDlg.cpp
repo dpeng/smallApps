@@ -123,8 +123,8 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				}
 
 				displaycount = displaycount < 10 ? displaycount : 10;
-				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCHRESULTITEMHEIGHT * displaycount)));
-				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCHRESULTITEMHEIGHT * displaycount)));
+				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
+				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
 
 				for (int i = 0; i < pThis->m_searchResult.size(); i++)
 				{
@@ -151,7 +151,7 @@ BOOL CeverythingDlg::OnInitDialog()
 	m_screenx = GetSystemMetrics(SM_CXSCREEN);
 	m_screeny = GetSystemMetrics(SM_CYSCREEN);
 	m_rc.top = (LONG)(m_screeny * 0.191);//(1-0.618)/2
-	m_rc.bottom = m_rc.top + 50;
+	m_rc.bottom = m_rc.top + SEARCH_BOX_HEIGHT;
 	m_rc.left = (LONG)(m_screenx * 0.22);
 	m_rc.right = (LONG)(m_screenx * 0.76);
 	moveEverythingDialogWindow();
@@ -248,7 +248,7 @@ LRESULT CeverythingDlg::OnNcHitTest(CPoint point)
 	{ 	
 		GetClientRect(&m_rc);
 		ClientToScreen(m_rc);
-		m_rc.bottom = m_rc.top + 50;
+		m_rc.bottom = m_rc.top + SEARCH_BOX_HEIGHT;
 		return HTCAPTION;
 	}
 	else
@@ -258,7 +258,8 @@ LRESULT CeverythingDlg::OnNcHitTest(CPoint point)
 void CeverythingDlg::moveEverythingDialogWindow(void)
 {
 	MoveWindow(m_rc);
-	m_listCtrl.MoveWindow(CRect (0, 50, 0, 0));
-	m_EditBox.MoveWindow(CRect(5, 5, (m_rc.right - m_rc.left - 5), (m_rc.bottom - m_rc.top - 5)));
+	m_listCtrl.MoveWindow(CRect (0, SEARCH_BOX_HEIGHT, 0, 0));
+	m_EditBox.MoveWindow(CRect(SEARCH_BOX_BODER_HEIGHT, SEARCH_BOX_BODER_HEIGHT, \
+		(m_rc.right - m_rc.left - SEARCH_BOX_BODER_HEIGHT), (m_rc.bottom - m_rc.top - SEARCH_BOX_BODER_HEIGHT)));
 }
 

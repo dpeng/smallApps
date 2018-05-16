@@ -90,7 +90,7 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	}
 	else
 	{
-		lpMeasureItemStruct->itemHeight = SEARCHRESULTITEMHEIGHT;// fix the line height
+		lpMeasureItemStruct->itemHeight = SEARCH_RESULT_ITEM_HEIGHT;// fix the line height
 	}
 }
 
@@ -127,7 +127,7 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		m_dc.FillSolidRect(&lpDrawItemStruct->rcItem, pListBox->bgColor);
 	}
 	
-	lpDrawItemStruct->rcItem.left += 5;
+	lpDrawItemStruct->rcItem.left += SEARCH_BOX_BODER_HEIGHT;
 	// Draw the text.
 	m_dc.SelectObject(&m_titleFont);
 	m_dc.DrawText(pListBox->titleStr, pListBox->titleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
