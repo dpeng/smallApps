@@ -166,12 +166,11 @@ inline void notificationWindow()
 	{
 		ShowWindow(g_hWnd,SW_SHOW);
 	}
-	Sleep(100);
+	//Sleep(100);
 	if (!bVisible) 
 	{ 
 		ShowWindow(g_hWnd,SW_HIDE); 
 	}
-	Sleep(150);
 }
 LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 {
@@ -218,8 +217,8 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 					strcpy_s(shellLPParameters, g_configXml->m_shellLPParameters[master][slave]);
 					if (strcmp(shellFileName, _T("unset")))
 					{
-						notificationWindow();
 						excuteCommand(shellFileName, shellLPParameters);
+						notificationWindow();
 					}
 				}
 			}
