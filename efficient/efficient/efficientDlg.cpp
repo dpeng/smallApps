@@ -218,7 +218,7 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 					if (strcmp(shellFileName, _T("unset")))
 					{
 						excuteCommand(shellFileName, shellLPParameters);
-						notificationWindow();
+						//notificationWindow(); /*doesnt show notification window to avoid screen capture applications got the main window*/
 					}
 				}
 			}
