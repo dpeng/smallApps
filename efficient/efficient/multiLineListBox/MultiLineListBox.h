@@ -45,6 +45,7 @@ public:
 
 	CFont m_titleFont;
 	CFont m_subTitleFont;
+	CRITICAL_SECTION m_mutexOfDraw;
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMulitLineListBox)

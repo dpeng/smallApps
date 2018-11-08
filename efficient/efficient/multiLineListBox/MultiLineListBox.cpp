@@ -45,6 +45,7 @@ CMultiLineListBox::CMultiLineListBox()
 		DEFAULT_QUALITY,           // nQuality
 		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
 		_T("Arial")));                 // lpszFacename
+	InitializeCriticalSection(&m_mutexOfDraw);
 }
 
 CMultiLineListBox::~CMultiLineListBox()
@@ -97,6 +98,7 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct) 
 {
 	// TODO: Add your code to draw the specified item
+	EnterCriticalSection(&m_mutexOfDraw);
 	if (NULL == lpDrawItemStruct) return;
 	ASSERT(lpDrawItemStruct->CtlType == ODT_LISTBOX);
 	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)  return;
@@ -141,6 +143,7 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	m_dc.SetTextColor(crOldTextColor);
 	m_dc.SetBkColor(crOldBkColor);
 	m_dc.Detach();
+	LeaveCriticalSection(&m_mutexOfDraw);
 }
 
 
