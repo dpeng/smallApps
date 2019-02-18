@@ -61,78 +61,74 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 		if (pThis->m_editBoxTextChange)
 		{
 			pThis->m_editBoxTextChange = FALSE;
-			CString tmpKeyWord = Everything_GetSearchA();
-			if (tmpKeyWord.Compare(pThis->m_keyWordInEditBox))
+			//search by everything
+			Everything_SetSearchA(pThis->m_keyWordInEditBox);
+			Everything_QueryA(TRUE);
+			CString tmpErrorMsg = "";
+			int everythingErrorCode = Everything_GetLastError();
+			switch (everythingErrorCode)
 			{
-				//search by everything
-				Everything_SetSearchA(pThis->m_keyWordInEditBox);
-				Everything_QueryA(TRUE);
-				CString tmpErrorMsg = "";
-				int everythingErrorCode = Everything_GetLastError();
-				switch (everythingErrorCode)
-				{
-				case EVERYTHING_OK:
-					tmpErrorMsg = "EVERYTHING: everthing is ok";
-					break;
-				case EVERYTHING_ERROR_MEMORY:
-					tmpErrorMsg = "EVERYTHING: out of memory";
-					break;
-				case EVERYTHING_ERROR_IPC:
-					tmpErrorMsg = "EVERYTHING: search client is not running";
-					break;
-				case EVERYTHING_ERROR_REGISTERCLASSEX:
-					tmpErrorMsg = "EVERYTHING: unable to register window class";
-					break;
-				case EVERYTHING_ERROR_CREATEWINDOW:
-					tmpErrorMsg = "EVERYTHING: unable to create listening window";
-					break;
-				case EVERYTHING_ERROR_CREATETHREAD:
-					tmpErrorMsg = "EVERYTHING: unable to create listening thread";
-					break;
-				case EVERYTHING_ERROR_INVALIDINDEX:
-					tmpErrorMsg = "EVERYTHING: invalid index";
-					break;
-				case EVERYTHING_ERROR_INVALIDCALL:
-					tmpErrorMsg = "EVERYTHING: invalid call";
-					break;
-				case EVERYTHING_ERROR_INVALIDREQUEST:
-					tmpErrorMsg = "EVERYTHING: invalid request data, request data first";
-					break;
-				case EVERYTHING_ERROR_INVALIDPARAMETER:
-					tmpErrorMsg = "EVERYTHING: bad parameter";
-					break;
-				default:
-					break;
-				}
-				if (everythingErrorCode != EVERYTHING_OK)
-				{
-					pThis->MessageBox(tmpErrorMsg);
-				}
-				pThis->m_searchResult.clear();
-				pThis->m_listCtrl.ResetContent();
-				int displaycount = Everything_GetNumResults();
-				if (displaycount > MAX_ITEM_SHOW_IN_LIST)
-				{
-					displaycount = MAX_ITEM_SHOW_IN_LIST;
-				}
-				for (int i = 0; i < displaycount; i++)
-				{
-					pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
-					pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
-					pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
-				}
-
-				displaycount = displaycount < 10 ? displaycount : 10;
-				pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
-				pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
-
-				for (int i = 0; i < pThis->m_searchResult.size(); i++)
-				{
-					pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
-					pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(192, 192, 192), RGB(0, 43, 54));
-				}
-				pThis->m_listCtrl.AppendString(MAGIC_STRING_FOR_LAST_DRAW, MAGIC_STRING_FOR_LAST_DRAW, RGB(192, 192, 192), RGB(0, 43, 54));
+			case EVERYTHING_OK:
+				tmpErrorMsg = "EVERYTHING: everthing is ok";
+				break;
+			case EVERYTHING_ERROR_MEMORY:
+				tmpErrorMsg = "EVERYTHING: out of memory";
+				break;
+			case EVERYTHING_ERROR_IPC:
+				tmpErrorMsg = "EVERYTHING: search client is not running";
+				break;
+			case EVERYTHING_ERROR_REGISTERCLASSEX:
+				tmpErrorMsg = "EVERYTHING: unable to register window class";
+				break;
+			case EVERYTHING_ERROR_CREATEWINDOW:
+				tmpErrorMsg = "EVERYTHING: unable to create listening window";
+				break;
+			case EVERYTHING_ERROR_CREATETHREAD:
+				tmpErrorMsg = "EVERYTHING: unable to create listening thread";
+				break;
+			case EVERYTHING_ERROR_INVALIDINDEX:
+				tmpErrorMsg = "EVERYTHING: invalid index";
+				break;
+			case EVERYTHING_ERROR_INVALIDCALL:
+				tmpErrorMsg = "EVERYTHING: invalid call";
+				break;
+			case EVERYTHING_ERROR_INVALIDREQUEST:
+				tmpErrorMsg = "EVERYTHING: invalid request data, request data first";
+				break;
+			case EVERYTHING_ERROR_INVALIDPARAMETER:
+				tmpErrorMsg = "EVERYTHING: bad parameter";
+				break;
+			default:
+				break;
 			}
+			if (everythingErrorCode != EVERYTHING_OK)
+			{
+				pThis->MessageBox(tmpErrorMsg);
+			}
+			pThis->m_searchResult.clear();
+			pThis->m_listCtrl.ResetContent();
+			int displaycount = Everything_GetNumResults();
+			if (displaycount > MAX_ITEM_SHOW_IN_LIST)
+			{
+				displaycount = MAX_ITEM_SHOW_IN_LIST;
+			}
+			for (int i = 0; i < displaycount; i++)
+			{
+				pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
+				pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
+				pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
+			}
+
+			displaycount = displaycount < 10 ? displaycount : 10;
+			pThis->MoveWindow(CRect(pThis->m_rc.left, pThis->m_rc.top, pThis->m_rc.right, (LONG)(pThis->m_rc.bottom + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
+			pThis->m_listCtrl.MoveWindow(CRect(0, (pThis->m_rc.bottom - pThis->m_rc.top), (pThis->m_rc.right - pThis->m_rc.left), (LONG)(pThis->m_rc.bottom - pThis->m_rc.top + SEARCH_RESULT_ITEM_HEIGHT * displaycount)));
+
+			for (int i = 0; i < pThis->m_searchResult.size(); i++)
+			{
+				pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
+				pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(192, 192, 192), RGB(0, 43, 54));
+			}
+			pThis->m_listCtrl.AppendString(MAGIC_STRING_FOR_LAST_DRAW, MAGIC_STRING_FOR_LAST_DRAW, RGB(192, 192, 192), RGB(0, 43, 54));
 		}
 		else
 		{
