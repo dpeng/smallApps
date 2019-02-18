@@ -64,7 +64,7 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 			//search by everything
 			Everything_SetSearchA(pThis->m_keyWordInEditBox); 
 			Everything_SetRequestFlags(EVERYTHING_REQUEST_FILE_NAME | EVERYTHING_REQUEST_PATH | EVERYTHING_REQUEST_SIZE);
-			Everything_SetSort(EVERYTHING_SORT_SIZE_DESCENDING);
+			//Everything_SetSort(EVERYTHING_SORT_SIZE_DESCENDING);
 			Everything_QueryA(TRUE);
 			int everythingErrorCode = Everything_GetLastError();
 			if (everythingErrorCode != EVERYTHING_OK)
