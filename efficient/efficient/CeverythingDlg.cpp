@@ -53,6 +53,52 @@ void CeverythingDlg::OnEnChangeKeywordcollector()
 	m_editBoxTextChange = TRUE;
 }
 
+inline void everythingErrCheck(void)
+{
+	int everythingErrorCode = Everything_GetLastError();
+	if (everythingErrorCode != EVERYTHING_OK)
+	{
+		CString tmpErrorMsg = "";
+		switch (everythingErrorCode)
+		{
+		case EVERYTHING_OK:
+			tmpErrorMsg = "EVERYTHING: everthing is ok";
+			break;
+		case EVERYTHING_ERROR_MEMORY:
+			tmpErrorMsg = "EVERYTHING: out of memory";
+			break;
+		case EVERYTHING_ERROR_IPC:
+			tmpErrorMsg = "EVERYTHING: search client is not running";
+			break;
+		case EVERYTHING_ERROR_REGISTERCLASSEX:
+			tmpErrorMsg = "EVERYTHING: unable to register window class";
+			break;
+		case EVERYTHING_ERROR_CREATEWINDOW:
+			tmpErrorMsg = "EVERYTHING: unable to create listening window";
+			break;
+		case EVERYTHING_ERROR_CREATETHREAD:
+			tmpErrorMsg = "EVERYTHING: unable to create listening thread";
+			break;
+		case EVERYTHING_ERROR_INVALIDINDEX:
+			tmpErrorMsg = "EVERYTHING: invalid index";
+			break;
+		case EVERYTHING_ERROR_INVALIDCALL:
+			tmpErrorMsg = "EVERYTHING: invalid call";
+			break;
+		case EVERYTHING_ERROR_INVALIDREQUEST:
+			tmpErrorMsg = "EVERYTHING: invalid request data, request data first";
+			break;
+		case EVERYTHING_ERROR_INVALIDPARAMETER:
+			tmpErrorMsg = "EVERYTHING: bad parameter";
+			break;
+		default:
+			tmpErrorMsg.Format("EVERYTHING: error code %d", everythingErrorCode);
+			break;
+		}
+		MessageBox(NULL, tmpErrorMsg, _T("Waring"), MB_OK | MB_ICONINFORMATION);
+	}
+}
+
 DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 {
 	CeverythingDlg* pThis = (CeverythingDlg*)pParam;
@@ -66,47 +112,7 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 			Everything_SetRequestFlags(EVERYTHING_REQUEST_FILE_NAME | EVERYTHING_REQUEST_PATH | EVERYTHING_REQUEST_SIZE);
 			//Everything_SetSort(EVERYTHING_SORT_SIZE_DESCENDING);
 			Everything_QueryA(TRUE);
-			int everythingErrorCode = Everything_GetLastError();
-			if (everythingErrorCode != EVERYTHING_OK)
-			{
-				CString tmpErrorMsg = "";
-				switch (everythingErrorCode)
-				{
-				case EVERYTHING_OK:
-					tmpErrorMsg = "EVERYTHING: everthing is ok";
-					break;
-				case EVERYTHING_ERROR_MEMORY:
-					tmpErrorMsg = "EVERYTHING: out of memory";
-					break;
-				case EVERYTHING_ERROR_IPC:
-					tmpErrorMsg = "EVERYTHING: search client is not running";
-					break;
-				case EVERYTHING_ERROR_REGISTERCLASSEX:
-					tmpErrorMsg = "EVERYTHING: unable to register window class";
-					break;
-				case EVERYTHING_ERROR_CREATEWINDOW:
-					tmpErrorMsg = "EVERYTHING: unable to create listening window";
-					break;
-				case EVERYTHING_ERROR_CREATETHREAD:
-					tmpErrorMsg = "EVERYTHING: unable to create listening thread";
-					break;
-				case EVERYTHING_ERROR_INVALIDINDEX:
-					tmpErrorMsg = "EVERYTHING: invalid index";
-					break;
-				case EVERYTHING_ERROR_INVALIDCALL:
-					tmpErrorMsg = "EVERYTHING: invalid call";
-					break;
-				case EVERYTHING_ERROR_INVALIDREQUEST:
-					tmpErrorMsg = "EVERYTHING: invalid request data, request data first";
-					break;
-				case EVERYTHING_ERROR_INVALIDPARAMETER:
-					tmpErrorMsg = "EVERYTHING: bad parameter";
-					break;
-				default:
-					break;
-				}
-				pThis->MessageBox(tmpErrorMsg);
-			}
+			everythingErrCheck();
 			pThis->m_searchResult.clear();
 			pThis->m_listCtrl.ResetContent();
 			int displaycount = Everything_GetNumResults();
@@ -243,7 +249,7 @@ HBRUSH CeverythingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 LRESULT CeverythingDlg::OnNcHitTest(CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-    UINT nHitTest = CDialog::OnNcHitTest(point);
+    UINT nHitTest = (UINT)CDialog::OnNcHitTest(point);
  	if(nHitTest==HTCLIENT)
 	{ 	
 		GetClientRect(&m_rc);
