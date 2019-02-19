@@ -45,7 +45,6 @@ CMultiLineListBox::CMultiLineListBox()
 		DEFAULT_QUALITY,           // nQuality
 		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
 		_T("Arial")));                 // lpszFacename
-	InitializeCriticalSection(&m_mutexOfDraw);
 }
 
 CMultiLineListBox::~CMultiLineListBox()
@@ -98,7 +97,6 @@ void CMultiLineListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct) 
 {
 	// TODO: Add your code to draw the specified item
-	EnterCriticalSection(&m_mutexOfDraw);
 	if (NULL == lpDrawItemStruct) return;
 	ASSERT(lpDrawItemStruct->CtlType == ODT_LISTBOX);
 	if (lpDrawItemStruct->itemID > MAX_ITEM_SHOW_IN_LIST)  return;
@@ -107,11 +105,7 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if (strstr(pListBox->titleStr, MAGIC_STRING_FOR_LAST_DRAW)) return;
 		
 	m_dc.Attach(lpDrawItemStruct->hDC);
-	
-	// Save these value to restore them when done drawing.
-	COLORREF crOldTextColor = m_dc.GetTextColor();
-	COLORREF crOldBkColor = m_dc.GetBkColor();
-	
+		
 	// If this item is selected, set the background color 
 	// and the text color to appropriate values. Also, erase
 	// rect by filling it with the background color.
@@ -138,12 +132,7 @@ void CMultiLineListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	lpDrawItemStruct->rcItem.top += TITLE_STRING_FONT_HEIGHT;
 	m_dc.DrawText(pListBox->subTitleStr, pListBox->subTitleStr.GetLength(), &lpDrawItemStruct->rcItem, DT_WORDBREAK| DT_SINGLELINE);
 	
-	// Reset the background color and the text color back to their
-	// original values.
-	m_dc.SetTextColor(crOldTextColor);
-	m_dc.SetBkColor(crOldBkColor);
 	m_dc.Detach();
-	LeaveCriticalSection(&m_mutexOfDraw);
 }
 
 

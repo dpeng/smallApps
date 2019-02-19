@@ -6,7 +6,23 @@
 #endif // _MSC_VER > 1000
 // MulitLineListBox.h : header file
 //
+/*
+backup code
+	CRITICAL_SECTION m_mutexOfDraw;
+	InitializeCriticalSection(&m_mutexOfDraw);
+	EnterCriticalSection(&m_mutexOfDraw);
+	LeaveCriticalSection(&m_mutexOfDraw);
 
+
+	// Save these value to restore them when done drawing.
+	COLORREF crOldTextColor = m_dc.GetTextColor();
+	COLORREF crOldBkColor = m_dc.GetBkColor();
+	// Reset the background color and the text color back to their
+	// original values.
+	m_dc.SetTextColor(crOldTextColor);
+	m_dc.SetBkColor(crOldBkColor);
+	
+	*/
 #define MAX_ITEM_SHOW_IN_LIST 1024
 #define TITLE_STRING_FONT_HEIGHT 24
 #define SUBTITLE_STRING_FONT_HEIGHT 16
@@ -45,7 +61,6 @@ public:
 
 	CFont m_titleFont;
 	CFont m_subTitleFont;
-	CRITICAL_SECTION m_mutexOfDraw;
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMulitLineListBox)
