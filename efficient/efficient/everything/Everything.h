@@ -99,7 +99,8 @@ extern "C" {
 #endif
 
 #ifndef EVERYTHINGUSERAPI
-#define EVERYTHINGUSERAPI __declspec(dllimport)
+//#define EVERYTHINGUSERAPI __declspec(dllimport)
+#define EVERYTHINGUSERAPI 
 #endif
 
 // write search state

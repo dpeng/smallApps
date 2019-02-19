@@ -54,6 +54,9 @@
     <ClCompile Include="multiLineListBox\MultiLineListBox.cpp">
       <Filter>Source Files\multiLineListBox</Filter>
     </ClCompile>
+    <ClCompile Include="everything\Everything.c">
+      <Filter>everything</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Configuration.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="multiLineListBox\MultiLineListBox.h">
       <Filter>Source Files\multiLineListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="everything\everything_ipc.h">
+      <Filter>everything</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
