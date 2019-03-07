@@ -175,8 +175,9 @@ void CeverythingDlg::OnLbnDblclkSearchresultlist()
 {
 	// TODO: Add your control notification handler code here
 	int nSel = m_listCtrl.GetCurSel();
-	releaseResources();
+	ShowWindow(SW_HIDE);
 	ShellExecute(g_hWnd, _T("open"), m_searchResult[nSel].filePath + "\\" + m_searchResult[nSel].fileName, _T(""), _T(""), SW_SHOWNORMAL);
+	releaseResources();
 }
 
 
@@ -195,8 +196,9 @@ BOOL CeverythingDlg::PreTranslateMessage(MSG* pMsg)
 	{
 		if (IDC_SEARCHRESULTLIST == (CWnd::GetFocus())->GetDlgCtrlID())
 		{
-			releaseResources();
+			ShowWindow(SW_HIDE);
 			ShellExecute(g_hWnd, _T("open"), m_searchResult[m_listCtrl.GetCurSel()].filePath, _T(""), _T(""), SW_SHOWNORMAL);
+			releaseResources();
 		    return true;
 		}
 	}
