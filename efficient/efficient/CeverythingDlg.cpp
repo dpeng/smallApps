@@ -175,10 +175,8 @@ void CeverythingDlg::OnLbnDblclkSearchresultlist()
 {
 	// TODO: Add your control notification handler code here
 	int nSel = m_listCtrl.GetCurSel();
-	CString s;
-	m_listCtrl.GetText(nSel, s);
 	releaseResources();
-	ShellExecute(g_hWnd, _T("open"), s, _T(""), _T(""), SW_SHOWNORMAL);
+	ShellExecute(g_hWnd, _T("open"), m_searchResult[nSel].filePath + "\\" + m_searchResult[nSel].fileName, _T(""), _T(""), SW_SHOWNORMAL);
 }
 
 
@@ -192,6 +190,15 @@ BOOL CeverythingDlg::PreTranslateMessage(MSG* pMsg)
 			OnLbnDblclkSearchresultlist();
 		}
 		return true;
+	}
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_SPACE)
+	{
+		if (IDC_SEARCHRESULTLIST == (CWnd::GetFocus())->GetDlgCtrlID())
+		{
+			releaseResources();
+			ShellExecute(g_hWnd, _T("open"), m_searchResult[m_listCtrl.GetCurSel()].filePath, _T(""), _T(""), SW_SHOWNORMAL);
+		    return true;
+		}
 	}
 	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
 	{
