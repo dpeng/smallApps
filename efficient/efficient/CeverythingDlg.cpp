@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(CeverythingDlg, CDialog)
 CeverythingDlg::CeverythingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(IDD_EVERYTHING, pParent)
 {
+	GetTimeZoneInformation(&m_TimeZoneInformation);
 }
 
 CeverythingDlg::~CeverythingDlg()
@@ -102,6 +103,7 @@ inline void everythingErrCheck(void)
 DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 {
 	CeverythingDlg* pThis = (CeverythingDlg*)pParam;
+	FILETIME tmpFileTime;
 	while (1)
 	{
 		if (pThis->m_editBoxTextChange)
@@ -109,7 +111,7 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 			pThis->m_editBoxTextChange = FALSE;
 			//search by everything
 			Everything_SetSearchA(pThis->m_keyWordInEditBox); 
-			Everything_SetRequestFlags(EVERYTHING_REQUEST_FILE_NAME | EVERYTHING_REQUEST_PATH | EVERYTHING_REQUEST_SIZE);
+			Everything_SetRequestFlags(EVERYTHING_REQUEST_FILE_NAME | EVERYTHING_REQUEST_PATH | EVERYTHING_REQUEST_SIZE | EVERYTHING_REQUEST_DATE_MODIFIED);
 			//Everything_SetSort(EVERYTHING_SORT_SIZE_DESCENDING);
 			Everything_QueryA(TRUE);
 			everythingErrCheck();
@@ -124,6 +126,16 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 			{
 				pThis->m_tmpSearchResult.fileName = Everything_GetResultFileNameA(i);
 				pThis->m_tmpSearchResult.filePath = Everything_GetResultPathA(i);
+				Everything_GetResultSize(i, &(pThis->m_filesize));
+				//pThis->m_tmpSearchResult.size = int ((pThis->m_filesize.QuadPart >> 10) + \
+				//	!(PathIsDirectoryA(pThis->m_tmpSearchResult.filePath +"\\" + pThis->m_tmpSearchResult.fileName)));
+				if (pThis->m_filesize.QuadPart > 0)
+					pThis->m_tmpSearchResult.size = int((pThis->m_filesize.QuadPart >> 10) + 1);
+				else
+					pThis->m_tmpSearchResult.size = 0;
+				Everything_GetResultDateModified(i, &tmpFileTime);
+				FileTimeToSystemTime(&tmpFileTime, &(pThis->m_tmpSearchResult.modifiytime));
+				SystemTimeToTzSpecificLocalTime(&(pThis->m_TimeZoneInformation), &(pThis->m_tmpSearchResult.modifiytime), &(pThis->m_tmpSearchResult.modifiytime));
 				pThis->m_searchResult.push_back(pThis->m_tmpSearchResult);
 			}
 			Everything_Reset();
@@ -136,7 +148,16 @@ DWORD CeverythingDlg::queryAndDisplayProcess(LPVOID pParam)
 				pThis->m_tmpSearchResult = pThis->m_searchResult.at(i);
 				if (pThis->m_editBoxTextChange && i > 10)
 					break;
-				pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, pThis->m_tmpSearchResult.filePath, RGB(192, 192, 192), RGB(0, 43, 54));
+				CString subTitleStr = _T("");
+				subTitleStr.Format("%04d%02d%02d %02d:%02d size: %dkb %s",
+					pThis->m_tmpSearchResult.modifiytime.wYear,
+					pThis->m_tmpSearchResult.modifiytime.wMonth,
+					pThis->m_tmpSearchResult.modifiytime.wDay,
+					pThis->m_tmpSearchResult.modifiytime.wHour,
+					pThis->m_tmpSearchResult.modifiytime.wMinute,
+					pThis->m_tmpSearchResult.size,
+					pThis->m_tmpSearchResult.filePath);
+				pThis->m_listCtrl.AppendString(pThis->m_tmpSearchResult.fileName, subTitleStr, RGB(192, 192, 192), RGB(0, 43, 54));
 			}
 			pThis->m_listCtrl.AppendString(MAGIC_STRING_FOR_LAST_DRAW, MAGIC_STRING_FOR_LAST_DRAW, RGB(192, 192, 192), RGB(0, 43, 54));
 		}

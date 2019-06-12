@@ -10,6 +10,8 @@ typedef struct
 {
 	CString fileName;
 	CString filePath;
+	int size;
+	SYSTEMTIME modifiytime;
 } SSearchResult;
 class CeverythingDlg : public CDialog
 {
@@ -48,4 +50,6 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg LRESULT OnNcHitTest(CPoint point);
     void moveEverythingDialogWindow(void);
+	TIME_ZONE_INFORMATION m_TimeZoneInformation;
+	LARGE_INTEGER m_filesize;
 };
