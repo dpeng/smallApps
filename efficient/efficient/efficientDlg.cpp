@@ -236,10 +236,11 @@ LRESULT CALLBACK TaskKeyHookPro(int nCode, WPARAM wp, LPARAM lp)
 				if (bAltKeyDonw)
 				{
 					//move search window to default place
+					/*remove everything search as search service already provided by mircosoft powertoy
 					g_everythingDlg.moveEverythingDialogWindow();
 					g_everythingDlg.ShowWindow(SW_SHOW);
 					g_everythingDlg.SetForegroundWindow();
-					g_everythingDlg.m_EditBox.SetFocus();
+					g_everythingDlg.m_EditBox.SetFocus();*/
 					//SUCESS_BEEP(1000, 300, g_configXml->m_bBeep);
 				}
 				break;
